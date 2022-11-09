@@ -1,5 +1,10 @@
 #ifndef TINYEXR_H_
 #define TINYEXR_H_
+
+#if defined(_MSC_VER)
+#pragma warning(push, 0)
+#endif
+
 // From https://github.com/syoyo/tinyexr
 
 /*
@@ -8597,6 +8602,10 @@ int SaveEXR(const float *data, int width, int height, int components,
 #ifdef __clang__
 // zero-as-null-ppinter-constant
 #pragma clang diagnostic pop
+#endif
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
 #endif
 
 #endif  // TINYEXR_IMPLEMENTATION_DEFINED

@@ -23,7 +23,7 @@ if (PNG_FOUND)
     include_directories(${PNG_INCLUDE_DIRS})
     add_definitions(${PNG_DEFINITIONS})
     set(ASSIGNMENT_LIBRARIES ${ASSIGNMENT_LIBRARIES} ${PNG_LIBRARIES})
-elseif(WIN32 AND MSVC)
+elseif(WIN32)
     add_definitions(-DGDIPLUS_SUPPORT)
     set(ASSIGNMENT_LIBRARIES ${ASSIGNMENT_LIBRARIES} gdiplus)
 else()
@@ -50,7 +50,9 @@ add_executable(cgray ${ALL_ASSIGNMENT_SOURCES} main/main.cpp)
 # Make sure all the warnings are used and traited as errors!
 # Only exception is unused-parameter (as students work iteratively), which is only traited as a warning
 if(MSVC)
-  target_compile_options(cgray PRIVATE /W4 /WX)
+  target_compile_options(cgray PRIVATE /W4 /WX
+    /wd4100 /wd4316 /wd4324 /wd4458 /wd4706
+  )
 else()
   target_compile_options(cgray PRIVATE
     -Wall -Wextra -Wpedantic -Werror
