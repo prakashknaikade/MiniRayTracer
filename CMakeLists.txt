@@ -51,7 +51,7 @@ add_executable(cgray ${ALL_ASSIGNMENT_SOURCES} main/main.cpp)
 # Only exception is unused-parameter (as students work iteratively), which is only traited as a warning
 if(MSVC)
   target_compile_options(cgray PRIVATE /W4 /WX
-    /wd4100 /wd4316 /wd4324 /wd4458 /wd4706
+    /wd4100 /wd4316 /wd4324 /wd4458 /wd4706 /wd4127
   )
 else()
   target_compile_options(cgray PRIVATE
