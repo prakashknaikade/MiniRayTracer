@@ -160,7 +160,7 @@ Point operator - (const Point& a, const Vector& b) {
 }
 
 Point operator * (const HomogeneousCoord& scale, const Point& p) {
-    /* TODO */ //NOT_IMPLEMENTED;
+    /* TODO */ NOT_IMPLEMENTED;
 }
 
 }
