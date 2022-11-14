@@ -2,9 +2,11 @@
 #include <core/image.h>
 
 #ifdef GDIPLUS_SUPPORT
+#pragma warning(push, 0)
 #include <windows.h>
 #include <process.h>
 #include <gdiplus.h>
+#pragma warning(pop)
 #else
 #include <png.h>
 #include <cstdlib>
@@ -17,6 +19,11 @@
 #define TINYEXR_USE_OPENMP 1
 #endif
 #define TINYEXR_IMPLEMENTATION
+
+// undefine harmful macros set by windef
+#undef min
+#undef max
+
 #include <tinyexr.h>
 
 namespace rt {
@@ -131,8 +138,7 @@ void Image::writePNG(const std::string& _fileName)
     ULONG_PTR gdiplusToken;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    CLSID   encoderClsid;
-    Status  stat;
+    CLSID encoderClsid;
 
     Bitmap *Image = new Bitmap(width_, height_, PixelFormat24bppRGB);
     BitmapData data;
@@ -158,7 +164,7 @@ void Image::writePNG(const std::string& _fileName)
     GetEncoderClsid(L"image/png", &encoderClsid);
 
     std::wstring name(_fileName.begin(), _fileName.end());
-    stat = Image->Save(name.c_str(), &encoderClsid, NULL);
+    Image->Save(name.c_str(), &encoderClsid, NULL);
 
     delete Image;
     GdiplusShutdown(gdiplusToken);
@@ -389,7 +395,7 @@ void Image::writeEXR(const std::string& fileName)
     delete[] header.requested_pixel_types;
 
     if (ret != TINYEXR_SUCCESS) {
-		abort_("[write_exr_file] %s", err);
+		fprintf(stderr, "[write_exr_file] %s", err);
         FreeEXRErrorMessage(err); // free's buffer for an error message
     }
 }
@@ -404,3 +410,4 @@ Image& Image::operator=( const Image& other ) {
 }
 
 }
+
