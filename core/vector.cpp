@@ -41,7 +41,11 @@ Vector Vector::operator - (const Vector& b) const {
 }
 
 Vector Vector::operator - () const {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    float x_out = -Vector::x;
+    float y_out = -Vector::y;
+    float z_out = -Vector::z;
+    return Vector(x_out, y_out, z_out);
 }
 
 Vector Vector::normalize() const {
