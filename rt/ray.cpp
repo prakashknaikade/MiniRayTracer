@@ -11,9 +11,7 @@ Ray::Ray(const Point& o, const Vector& d)
 
 Point Ray::getPoint(float distance) const {
     /* TODO */ //NOT_IMPLEMENTED;
-    Vector normalized = Ray::d.normalize();
-    Point out =  Ray::o + (distance * normalized);
-    return out;
+    return Point(o.x + distance * d.x, o.y + distance * d.y, o.z + distance * d.z);
 }
 
 }
