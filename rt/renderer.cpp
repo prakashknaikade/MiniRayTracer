@@ -23,7 +23,16 @@ namespace rt {
 
 void Renderer::test_render1(Image& img) {
     CG_UNUSED(img);
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    uint width = img.width();
+    uint height = img.height();
+
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            RGBColor color = a1computeColor(i, j, width, height);
+            // img.operator()
+        }
+    }
 }
 }
 
