@@ -18,6 +18,7 @@ public:
         );
 
     virtual Ray getPrimaryRay(float x, float y) const;
+    
 };
 
 }
