@@ -84,7 +84,7 @@ Vector operator / (const Vector& a, float scalar) {
 Vector cross(const Vector& a, const Vector& b) {
     /* TODO */ //NOT_IMPLEMENTED;
     float x_out = a.y*b.z - a.z*b.y;
-    float y_out = a.x*b.z - a.z*b.x;
+    float y_out = a.z*b.x - a.x*b.z;
     float z_out = a.x*b.y - a.y*b.z;
     return Vector(x_out, y_out, z_out);
 }
