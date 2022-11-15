@@ -6,6 +6,8 @@ namespace rt {
 
 Ray::Ray(const Point& o, const Vector& d)
 {
+    this->o = o;
+    this->d = d;
     rt_assert(d != Vector::rep(0.0f));
 }
 
