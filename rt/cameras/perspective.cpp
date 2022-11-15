@@ -16,7 +16,7 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
     PerspectiveCamera::cutY = tan(verticalOpeningAngle/2.0f);
 
     PerspectiveCamera::CamZAxis = forward.normalize();
-    PerspectiveCamera::CamXAxis = cross(forward, up.normalize()).normalize();
+    PerspectiveCamera::CamXAxis = cross(PerspectiveCamera::CamZAxis, up.normalize()).normalize();
     PerspectiveCamera::CamYAxis = cross(PerspectiveCamera::CamXAxis, PerspectiveCamera::CamZAxis).normalize();
 
 }
