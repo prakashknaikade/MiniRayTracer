@@ -20,7 +20,7 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
 
 }
 
-Ray PerspectiveCamera::::getPrimaryRay(float x, float y) const {
+Ray PerspectiveCamera::getPrimaryRay(float x, float y) const {
     /* TODO */ NOT_IMPLEMENTED;
 }
 	Vector dir = (x * CamX * cutX + y * CamYAxis * cutY +  CamZAxis).normalize();
