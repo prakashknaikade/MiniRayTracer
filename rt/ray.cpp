@@ -10,7 +10,8 @@ Ray::Ray(const Point& o, const Vector& d)
 }
 
 Point Ray::getPoint(float distance) const {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    return o + distance * d;
 }
 
 }
