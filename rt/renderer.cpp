@@ -29,9 +29,7 @@ void Renderer::test_render1(Image& img) {
 
     for (uint i = 0; i < width; i++) {
         for (uint j = 0; j < height; j++) {
-            RGBColor color = a1computeColor(i, j, width, height);
-            CG_UNUSED(color);
-            // img.operator()
+            img(i, j) = a1computeColor(i, j, width, height);
         }
     }
 }
