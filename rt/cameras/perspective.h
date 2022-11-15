@@ -9,6 +9,10 @@ namespace rt {
 
 class PerspectiveCamera : public Camera {
 public:
+    Vector CamZAxis, CamYAxis, CamXAxis;
+    float cutX, cutY;
+    Point _center;
+
     PerspectiveCamera(
         const Point& center,
         const Vector& forward,
@@ -18,14 +22,6 @@ public:
         );
 
     virtual Ray getPrimaryRay(float x, float y) const;
-    Vector CamZAxis;
-    Vector CamYAxis;
-    Vector CamXAxis;
-
-    float cutX;
-    float cutY;
-
-    Point _center;
 };
 
 }

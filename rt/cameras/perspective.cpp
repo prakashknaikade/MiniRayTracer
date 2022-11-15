@@ -17,7 +17,7 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
 
     PerspectiveCamera::CamZAxis = forward.normalize();
     PerspectiveCamera::CamXAxis = cross(forward, up.normalize()).normalize();
-    PerspectiveCamera::CamYAxis = cross(CamXAxis, CamZAxis).normalize();
+    PerspectiveCamera::CamYAxis = cross(PerspectiveCamera::CamXAxis, PerspectiveCamera::CamZAxis).normalize();
 
 }
 
