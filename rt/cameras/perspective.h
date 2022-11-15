@@ -18,7 +18,14 @@ public:
         );
 
     virtual Ray getPrimaryRay(float x, float y) const;
-    
+    Vector CamZAxis;
+    Vector CamYAxis;
+    Vector CamXAxis;
+
+    float cutX;
+    float cutY;
+
+    Point _center;
 };
 
 }
