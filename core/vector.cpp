@@ -77,10 +77,12 @@ Vector operator / (const Vector& a, float scalar) {
     /* TODO */ //NOT_IMPLEMENTED;
     if(scalar == 0.0)
         scalar = 1.0 / epsilon;
-        
-    float x_out = a.x / scalar;
-    float y_out = a.y / scalar;
-    float z_out = a.z / scalar;
+    else
+        scalar = 1.0 / scalar;
+       
+    float x_out = a.x * scalar;
+    float y_out = a.y * scalar;
+    float z_out = a.z * scalar;
     return Vector(x_out, y_out, z_out);
 }
 
