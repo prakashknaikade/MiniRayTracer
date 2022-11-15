@@ -6,18 +6,18 @@ namespace rt {
 PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward, const Vector& up, float verticalOpeningAngle, float horizontalOpeningAngle)
 {
     /* TODO */
-    Point _center = center;
+    _center = center;
   	// PerspectiveCamera::forward = forward;
   	// PerspectiveCamera::up = up;
     // PerspectiveCamera::verticalOpeningAngle = verticalOpeningAngle;
     // PerspectiveCamera::horizontalOpeningAngle = horizontalOpeningAngle;
 
-    float cutX = tan(horizontalOpeningAngle/2.0f);
-    float cutY = tan(verticalOpeningAngle/2.0f);
+    cutX = tan(horizontalOpeningAngle/2.0f);
+    cutY = tan(verticalOpeningAngle/2.0f);
 
-    Vector CamZAxis = forward.normalize();
-    Vector CamXAxis = cross(forward, up.normalize()).normalize();
-    Vector CamYAxis = cross(CamXAxis, CamZAxis).normalize();
+    CamZAxis = forward.normalize();
+    CamXAxis = cross(forward, up.normalize()).normalize();
+    CamYAxis = cross(CamXAxis, CamZAxis).normalize();
 
 }
 
