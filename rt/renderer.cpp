@@ -22,7 +22,7 @@ rt::RGBColor a1computeColor(rt::uint x, rt::uint y, rt::uint width, rt::uint hei
 namespace rt {
 
 void Renderer::test_render1(Image& img) {
-    CG_UNUSED(img);
+    //CG_UNUSED(img);
     /* TODO */ //NOT_IMPLEMENTED;
     uint width = img.width();
     uint height = img.height();
@@ -30,6 +30,7 @@ void Renderer::test_render1(Image& img) {
     for (uint i = 0; i < width; i++) {
         for (uint j = 0; j < height; j++) {
             RGBColor color = a1computeColor(i, j, width, height);
+            CG_UNUSED(color);
             // img.operator()
         }
     }
