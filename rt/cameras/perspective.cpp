@@ -11,8 +11,8 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
     PerspectiveCamera::verticalOpeningAngle = verticalOpeningAngle;
     PerspectiveCamera::horizontalOpeningAngle = horizontalOpeningAngle;
 
-    PerspectiveCamera::cutX = tan(PerspectiveCamera::horizontalOpeningAngle/2.0f);
-    PerspectiveCamera::cutY = tan(PerspectiveCamera::verticalOpeningAngle/2.0f);
+    float cutX = tan(PerspectiveCamera::horizontalOpeningAngle/2.0f);
+    float cutY = tan(PerspectiveCamera::verticalOpeningAngle/2.0f);
 
     PerspectiveCamera::CamZ = PerspectiveCamera::forward.normalize();
     PerspectiveCamera::CamX = cross(PerspectiveCamera::forward, PerspectiveCamera::up.normalize()).normalize();
@@ -23,6 +23,6 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
 Ray PerspectiveCamera::getPrimaryRay(float x, float y) const {
     /* TODO */ NOT_IMPLEMENTED;
 }
-	Vector dir = (x * CamX * cutX + y * CamYAxis * cutY +  CamZAxis).normalize();
+	Vector dir = (x * CamX * cutX + y * CamY * cutY +  CamZ).normalize();
 	return Ray(center, dir);
 }
