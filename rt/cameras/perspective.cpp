@@ -19,6 +19,10 @@ PerspectiveCamera::PerspectiveCamera(const Point& center, const Vector& forward,
     PerspectiveCamera::CamXAxis = cross(PerspectiveCamera::CamZAxis, up.normalize()).normalize();
     PerspectiveCamera::CamYAxis = cross(PerspectiveCamera::CamXAxis, PerspectiveCamera::CamZAxis).normalize();
 
+    // this -> z_step = forward.normalize()
+    // this -> x_step = cross(z_step, up)
+    // this -> y_step = cross(z_step, x_step)
+
 }
 
 Ray PerspectiveCamera::getPrimaryRay(float x, float y) const {

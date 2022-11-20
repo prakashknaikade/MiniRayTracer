@@ -41,7 +41,21 @@ namespace rt {
 
 void Renderer::test_render2(Image& img) {
     CG_UNUSED(img);
-    /* TODO */ NOT_IMPLEMENTED;
+    for (uint y = 0; y < img.height(); ++y)
+	{
+		for (uint x = 0; x < img.width(); ++x)
+		{
+			float cameraX = 2.0 * float(x + 0.5) / float(img.width()) - 1;
+			float cameraY = 1 - 2.0 * float(y + 0.5) / float(img.height());
+
+			Ray r = cam.getPrimaryRay(cameraX, cameraY);
+
+			RGBColor color = a2computeColor(r);
+			RGBColor* pixelColor = &img(x, y);
+			*pixelColor = color * 255;
+
+		}
+	}
 }
 
 }
