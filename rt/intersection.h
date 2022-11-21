@@ -15,8 +15,8 @@ public:
     const Solid* solid;
     float distance;
     bool Intersection_Status;
-    Vector normalVec() const;
-    Point localPoint() const;
+    Vector normalVec();
+    Point localPoint();
     Intersection() {}
     static Intersection failure();
     Intersection(float distance, const Ray& ray, const Solid* solid, const Vector& normal, const Point& uv);
