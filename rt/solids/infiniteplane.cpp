@@ -24,12 +24,12 @@ Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) co
 
     float t = -dot(ray.o - mOrigin, mNormal) / denom;
 
-    if (t < tmin) return Intersection::failure();
+    if (t < tmin || t > tmax) return Intersection::failure();
 
-    if (t < tmax) {
-        Point surfacePoint = ray.getPoint(t);
-        return Intersection(t, ray, this, mNormal, surfacePoint);
-    }
+    
+    Point surfacePoint = ray.getPoint(t);
+    return Intersection(t, ray, this, mNormal, surfacePoint);
+    
 }
 
 Solid::Sample InfinitePlane::sample() const {
