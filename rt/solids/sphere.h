@@ -14,9 +14,10 @@ public:
     virtual Intersection intersect(const Ray& ray, float tmin = 0, float tmax = FLT_MAX) const;
     virtual Sample sample() const;
     virtual float getArea() const;
+    bool solveQuardaticEquation(float a, float b, float c, float& t0, float& t1) const;
 private:
-    Point center;
-  	float radius;
+    Point mCenter;
+    float mR;
 };
 
 }
