@@ -27,12 +27,12 @@ RGBColor RayCastingDistIntegrator::getRadiance(const Ray& ray) const {
         else
             weight = (farDist - intersec.distance) / (farDist - nearDist);
 
-        float cos = abs(dot(intersec.normal().normalize(), ray.d.normalize()));
+        float cos = abs(dot(intersec.normal(), ray.d.normalize()));
 
         cos = max(cos, 0.0f);
         const RGBColor color = nearColor * weight + farColor * (1.0f - weight);
-
-        return color; //* cos;
+        RGBColor outcolor = color*cos;
+        return outcolor.clamp();
     }
     else {
         return RGBColor(0, 0, 0);
