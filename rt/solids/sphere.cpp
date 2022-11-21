@@ -13,6 +13,9 @@ BBox Sphere::getBounds() const {
     /* TODO */ NOT_IMPLEMENTED;
 }
 
+bool valid(float t, float previousBestDistance){
+    return (t < previousBestDistance && t >= epsilon);
+}
 Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
     /* TODO */ //NOT_IMPLEMENTED;
     float L = dot(ray.d, ray.d);
@@ -25,7 +28,18 @@ Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
 
 	if (d < 0.0f) 
         return Intersection::failure();
-    
+    else {
+  			float t1 = (- B + sqrt(d)) / (2 * M);
+  			float t2 = (- B - sqrt(d)) / (2 * M);
+
+  			bool t1_val = valid(t1, tmax);
+  			bool t2_val = valid(t2, tmax);
+
+  			if (!t1_val && !t2_val) return Intersection::failure();
+  			if (t1_val && t2_val) t = min(t1, t2);
+  			if (!t1_val && t2_val) t = t2;
+  			if (t1_val && !t2_val) t = t1;
+		}
 
     normal = ray.getPoint(t) - center;
     Point hit_Point = ray.getPoint(t);
