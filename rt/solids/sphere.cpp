@@ -1,5 +1,4 @@
 #include <rt/solids/sphere.h>
-#include <core/float4.h>
 
 namespace rt {
 
