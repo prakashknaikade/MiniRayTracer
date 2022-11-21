@@ -16,15 +16,15 @@ public:
     virtual float getArea() const;
 
 private:
-	Point v1;
-	Point v2;
-	Point v3;
-	Point v4;
+  	Point p1;
+  	Point p2;
+  	Point p3;
+  	Point p4;
 
-	Vector mSpan1;
-	Vector mSpan2;
-	Vector mNormal;
-	Point mCenter;
+  	Vector span1;
+  	Vector span2;
+  	Vector normal;
+  	Point center;
 };
 
 }
