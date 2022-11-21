@@ -30,7 +30,7 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
         return Intersection::failure();
     
     float t = dot(center - ray.o, Quad::normal) / dot(ray.d, Quad::normal);
-    if (t > tmax || t < 0.001) 
+    if (t > tmax || t < tmin) 
         return Intersection::failure();
     
     Point strike__point = ray.getPoint(t);
@@ -71,7 +71,7 @@ Solid::Sample Quad::sample() const {
 
 float Quad::getArea() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    Vector norm = cross(mSpan1, mSpan2);
+    Vector norm = cross(span1, span2);
     return norm.length();
 }
 
