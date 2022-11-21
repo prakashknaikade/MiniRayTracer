@@ -3,6 +3,7 @@
 #include <rt/renderer.h>
 #include <rt/ray.h>
 #include <iostream>
+#include <rt/cameras/camera.h>
 
 namespace rt {
 
@@ -48,7 +49,7 @@ void Renderer::test_render2(Image& img) {
 			float cameraX = 2.0 * float(x + 0.5) / float(img.width()) - 1;
 			float cameraY = 1 - 2.0 * float(y + 0.5) / float(img.height());
 
-			Ray r = cam.getPrimaryRay(cameraX, cameraY);
+			Ray r = cam->getPrimaryRay(cameraX, cameraY);
 
 			RGBColor color = a2computeColor(r);
 			RGBColor* pixelColor = &img(x, y);
