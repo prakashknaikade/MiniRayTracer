@@ -19,7 +19,7 @@ Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) co
         return Intersection::failure();
 	
     float t = - dot(ray.o - origin, normal) / dot(ray.d, InfinitePlane::normal);
-	if (t > previousBestDistance || t < 0) 
+	if (t > tmax || t < 0) 
         return Intersection::failure();
 	
     return Intersection(t, ray, this, InfinitePlane::normal, ray.getPoint(t));
