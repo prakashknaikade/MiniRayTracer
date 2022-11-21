@@ -26,11 +26,11 @@ Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
 	if (d < 0.0f) 
         return Intersection::failure();
     else {
-        float t1 = (- M + sqrt(d)) / (2 * A);
-        float t2 = (- M - sqrt(d)) / (2 * A);
+        float t1 = (- M + sqrt(d)) / (2 * L);
+        float t2 = (- M - sqrt(d)) / (2 * L);
 
-        bool is_t1_valid = is_t_valid(t1, previousBestDistance);
-        bool is_t2_valid = is_t_valid(t2, previousBestDistance);
+        bool is_t1_valid = is_t_valid(t1, tmax);
+        bool is_t2_valid = is_t_valid(t2, tmax);
 
         if (!is_t1_valid && !is_t2_valid) 
             return Intersection::failure();
