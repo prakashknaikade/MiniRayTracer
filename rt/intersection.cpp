@@ -10,7 +10,7 @@ Intersection::Intersection(float distance, const Ray& ray, const Solid* solid, c
 	Intersection::solid = solid;
     Intersection::_normal = normal;
     Intersection::_local = local;
-    Intersection::IntersectionOccurred = true;
+    Intersection::Intersection_Status = true;
 }
 
 Intersection::operator bool() const {

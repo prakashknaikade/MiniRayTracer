@@ -23,6 +23,8 @@ public:
     Vector normal() const;
     Point local() const;
 
+    Vector _normal() const;
+    Point _local() const;
     operator bool() const; //this allows intersection object to be put directly in conditional statements. Becomes true if there is an intersection
 };
 
