@@ -26,7 +26,7 @@ Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
         return Intersection::failure();
     
     float t = - dot(ray.o - v1, normal) / dot(ray.d, this->normal);
-	if (t > previousBestDistance || t < epsilon) 
+	if (t > tmax || t < epsilon) 
         return Intersection::failure();
 
   Vector m1 = v2 - v1;
