@@ -13,9 +13,8 @@ BBox Sphere::getBounds() const {
     /* TODO */ NOT_IMPLEMENTED;
 }
 
-bool valid(float t, float previousBestDistance){
-    return (t < previousBestDistance && t >= epsilon);
-}
+
+
 Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
     /* TODO */ //NOT_IMPLEMENTED;
     float L = dot(ray.d, ray.d);
@@ -32,8 +31,8 @@ Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
   			float t1 = (- M + sqrt(d)) / (2 * M);
   			float t2 = (- M - sqrt(d)) / (2 * M);
 
-  			bool t1_val = valid(t1, tmax);
-  			bool t2_val = valid(t2, tmax);
+  			bool t1_val = t1 < tmax && t1 >= tmin;
+  			bool t2_val = t2 < tmax && t2 >= tmin;
 
   			if (!t1_val && !t2_val) return Intersection::failure();
   			if (t1_val && t2_val) t = min(t1, t2);

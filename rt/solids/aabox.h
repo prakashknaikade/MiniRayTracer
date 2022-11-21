@@ -15,8 +15,9 @@ public:
     virtual Sample sample() const;
     virtual float getArea() const;
 
-    Point cornerMin;
-    Point cornerMax;
+private:
+    Point mCorner1;
+    Point mCorner2;
 };
 
 }

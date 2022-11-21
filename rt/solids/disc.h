@@ -15,9 +15,11 @@ public:
     virtual Sample sample() const;
     virtual float getArea() const;
 
-    Point center;
-    Vector normal;
-    float radius;
+private:
+    Point mOrigin;
+    Vector mNormal;
+    float mRadius;
+    
 };
 
 }

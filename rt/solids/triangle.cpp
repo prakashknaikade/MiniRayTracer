@@ -5,15 +5,48 @@ namespace rt {
 Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material)
 {
     /* TODO */
+    setCoordMapper(texMapper);
+    setMaterial(material);
+    v1 = vertices[0];
+    v2 = vertices[1];
+    v3 = vertices[2];
+
+    float minx = min(v1.x, v2.x, v3.x);
+    float miny = min(v1.y, v2.y, v3.y);
+    float minz = min(v1.z, v2.z, v3.z);
+
+    float maxx = max(v1.x, v2.x, v3.x);
+    float maxy = max(v1.y, v2.y, v3.y);
+    float maxz = max(v1.z, v2.z, v3.z);
+
+    this -> bmin = Point(minx, miny, minz);
+    this -> bmax = Point(maxx, maxy, maxz);
+
 }
 
 Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMapper* texMapper, Material* material)
 {
     /* TODO */
-    Triangle::v1 = v1;
-    Triangle::v2 = v2;
-    Triangle::v3 = v3;
-    Triangle::normal = cross((v2 - v1), (v3 - v1)).normalize();
+    setCoordMapper(texMapper);
+    setMaterial(material);
+    this->v1 = v1;
+    this->v2 = v2;
+    this->v3 = v3;
+
+    mVect1 = (v2 - v1).normalize();
+    mVect2 = (v3 - v1).normalize();
+    mNormal = cross(mVect1, mVect2).normalize();
+
+    float minx = min(v1.x, v2.x, v3.x);
+    float miny = min(v1.y, v2.y, v3.y);
+    float minz = min(v1.z, v2.z, v3.z);
+
+    float maxx = max(v1.x, v2.x, v3.x);
+    float maxy = max(v1.y, v2.y, v3.y);
+    float maxz = max(v1.z, v2.z, v3.z);
+
+    this -> bmin = Point(minx, miny, minz);
+    this -> bmax = Point(maxx, maxy, maxz);
 }
 
 BBox Triangle::getBounds() const {
@@ -21,38 +54,42 @@ BBox Triangle::getBounds() const {
 }
 
 Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
-    /* TODO */ //NOT_IMPLEMENTED;
-    if (dot(ray.d, this->normal) == 0.0) 
+    // /* TODO */ NOT_IMPLEMENTED;
+    Vector v1v2 = v2 - v1;
+    Vector v1v3 = v3 - v1;
+    Vector planeNormal = cross(v1v2, v1v3);
+    float doubleTriangleArea = planeNormal.length();
+
+    float dotProductRayNormal = dot(ray.d, planeNormal);
+    if (dotProductRayNormal == 0) {
         return Intersection::failure();
+    }
+
+
+    float denom = dot(ray.d, planeNormal.normalize());
+    if (fabsf(denom) <= epsilon)
+        return Intersection::failure();
+    float t = -dot(ray.o - v1, planeNormal.normalize()) / denom;
+    if (t < tmin) return Intersection::failure();
     
-    float t = - dot(ray.o - v1, normal) / dot(ray.d, this->normal);
-	if (t > tmax || t < epsilon) 
-        return Intersection::failure();
+    Point hitPoint = ray.getPoint(t);
 
-  Vector m1 = v2 - v1;
-  Vector m2 = v3 - v1;
-  Vector pvec = cross(ray.d, m2);
-  float det = dot(m1, pvec);
+    Vector v2v3 = v3 - v2;
+    Vector v2P = hitPoint - v2;
+    float doubleAreaSubTriangle1 = cross(v2P, v2v3).length();
+    float u = doubleAreaSubTriangle1 / doubleTriangleArea;
 
-  if (fabs(det) < epsilon)
+    Vector v3P = hitPoint - v3;
+    float doubleAreaSubTriangle2 = cross(v3P, v1v3).length();
+    float v = doubleAreaSubTriangle2 / doubleTriangleArea;
+
+    float w = 1 - u - v;
+
+    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (t < tmax)) {
+        return Intersection (t, ray, this, planeNormal, hitPoint);
+    }
+
     return Intersection::failure();
-
-  float invDet = 1.0 / det;
-  Vector tvec = ray.o - v1;
-
-  float u = dot(tvec, pvec) * invDet;
-
-  if (u < 0 || u > 1)
-    return Intersection::failure();
-
-  Vector qvec = cross(tvec, m1);
-  float v = dot(ray.d, qvec) * invDet;
-
-  if (v < 0 || u + v > 1)
-    return Intersection::failure();
-
-  t = dot(m2, qvec) * invDet;
-  return Intersection(t, ray, this, normal, Point(1-u-v, u, v));
 }
 
 Solid::Sample Triangle::sample() const {
@@ -60,8 +97,9 @@ Solid::Sample Triangle::sample() const {
 }
 
 float Triangle::getArea() const {
-    /* TODO */ NOT_IMPLEMENTED;
-    return cross(v2 - v1, v3 - v1).length() / 2;
+    // /* TODO */ NOT_IMPLEMENTED;
+    Vector norm = cross(v2 - v1, v3 - v1);
+    return norm.length() / 2;
 }
 
 }

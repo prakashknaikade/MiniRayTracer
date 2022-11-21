@@ -6,50 +6,103 @@ namespace rt {
 AABox::AABox(const Point& corner1, const Point& corner2, CoordMapper* texMapper, Material* material)
 {
     /* TODO */
-    AABox::cornerMin = min(corner1, corner2);
-    AABox::cornerMax = max(corner1, corner2);
+    this->setCoordMapper(texMapper);
+	this->setMaterial(material);
+	this->mCorner1 = corner1;
+	this->mCorner2 = corner2;
 }
 
 BBox AABox::getBounds() const {
     /* TODO */ NOT_IMPLEMENTED;
+
 }
 
 Solid::Sample AABox::sample() const {
     NOT_IMPLEMENTED;
+
 }
 
 float AABox::getArea() const {
-    /* TODO */ //NOT_IMPLEMENTED;
-    float x = std::abs(cornerMax.x - cornerMin.x);
-    float y = std::abs(cornerMax.y - cornerMin.y);
-    float z = std::abs(cornerMax.z - cornerMin.z);
-    
-    return 2 * (x*y + y*z + z*x) ;
+    // /* TODO */ NOT_IMPLEMENTED;
+    float a = abs(mCorner1.x - mCorner2.x);
+	float b = abs(mCorner1.y - mCorner2.y);
+	float c = abs(mCorner1.z - mCorner2.z);
+
+	return 2 * (a * b + b * c + c * a);
 }
 
 Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
-    /* TODO */ //NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    Point minCorner = min(mCorner1, mCorner2);
+	Point maxCorner = max(mCorner1, mCorner2);
 
-    // Vector near = (cornerMin- ray.o) / ray.d;
-    // Vector far = (cornerMax - ray.o) / ray.d;
 
-    // float tMin = max(max(min(near.x, far.x),min(near.y, far.y)),min(near.z, far.z));
-    // float tMax = min(min(max(near.x, far.x),max(near.y, far.y)),max(near.z, far.z));
+	if (ray.d.x == 0)
+		if (ray.o.x < minCorner.x || ray.o.x > maxCorner.x) return Intersection::failure();
 
-    // if (tMax < 0 || tMin > tMax || tMax > FLT_MAX)
-    //     return Intersection::failure();
-    // if (tMin > tmax || tMin < 0)
-    //     return Intersection::failure();
+	if (ray.d.y == 0)
+		if (ray.o.y < minCorner.y || ray.o.y > maxCorner.y) return Intersection::failure();
 
-    // Vector normal;
-    // normal = tMin == near.x ? Vector(-1, 0, 0) : normal;
-    // normal = tMin == far.x ? Vector(1, 0, 0) : normal;
-    // normal = tMin == near.y ? Vector(0, -1, 0) : normal;
-    // normal = tMin == far.y ? Vector(0, 1, 0) : normal;
-    // normal = tMin == near.z ? Vector(0, 0, -1) : normal;
-    // normal = tMin == far.z ? Vector(0, 0, 1) : normal;
+	if (ray.d.z == 0)
+		if (ray.o.z < minCorner.z || ray.o.z > maxCorner.z) return Intersection::failure();
 
-    // return Intersection(tMin, ray, this, normal, ray.getPoint(tMin));
+	float t0x = (mCorner1.x - ray.o.x) / ray.d.x;
+	float t1x = (mCorner2.x - ray.o.x) / ray.d.x;
+	if (t0x > t1x) std::swap(t0x, t1x);
+
+	float t0y = (mCorner1.y - ray.o.y) / ray.d.y;
+	float t1y = (mCorner2.y - ray.o.y) / ray.d.y;
+	if (t0y > t1y) std::swap(t0y, t1y);
+
+	float t0z = (mCorner1.z - ray.o.z) / ray.d.z;
+	float t1z = (mCorner2.z - ray.o.z) / ray.d.z;
+	if (t0z > t1z) std::swap(t0z, t1z);
+
+	float maxt0 = max(max(t0x, t0y), t0z);
+	Vector normal0;
+	if (maxt0 == t0x) normal0 = Vector(-1, 0, 0);
+	if (maxt0 == t0y) normal0 = Vector(0, -1, 0);
+	if (maxt0 == t0z) normal0 = Vector(0, 0, -1);
+
+	Vector normal1;
+	float mint1 = min(min(t1x, t1y), t1z);
+	if (mint1 == t1x) normal1 = Vector(1, 0, 0);
+	if (mint1 == t1y) normal1 = Vector(0, 1, 0);
+	if (mint1 == t1z) normal1 = Vector(0, 0, 1);
+
+
+	if (maxt0 >= mint1) return Intersection::failure();
+
+
+	bool t1Valid = maxt0 <= tmax && maxt0 >= tmin;
+	bool t2Valid = mint1 <= tmax && mint1 >= tmin;
+
+	if (!t1Valid && !t2Valid) return Intersection::failure();
+
+	float t;
+	Vector normal;
+
+	if (t1Valid && t2Valid)
+	{
+		t = min(maxt0, mint1);
+		if (t == mint1) normal = normal1;
+		else normal = normal0;
+	}
+
+	if (!t1Valid && t2Valid)
+	{
+		t = mint1;
+		normal = normal1;
+	}
+
+	if (t1Valid && !t2Valid)
+	{
+		t = maxt0;
+		normal = normal0;
+	}
+
+	Point surfacePoint = ray.getPoint(t);
+	return Intersection(t, ray, this, normal, surfacePoint);
 }
 
 }

@@ -4,13 +4,12 @@ namespace rt {
 
 Solid::Solid(CoordMapper* texMapper, Material* material)
 {
-    CG_UNUSED(texMapper);
-    CG_UNUSED(material);
+    // CG_UNUSED(texMapper);
+    // CG_UNUSED(material);
 
     /* TODO */
-    Solid::material = material;
-	
-	Solid::texMapper = texMapper;
+    this->setCoordMapper(texMapper);
+	this->setMaterial(material);
 }
 
 
