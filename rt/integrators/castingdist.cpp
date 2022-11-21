@@ -32,7 +32,7 @@ RGBColor RayCastingDistIntegrator::getRadiance(const Ray& ray) const {
         cos = max(cos, 0.0f);
         const RGBColor color = nearColor * weight + farColor * (1.0f - weight);
 
-        return color * cos;
+        return color; //* cos;
     }
     else {
         return RGBColor(0, 0, 0);
