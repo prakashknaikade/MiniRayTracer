@@ -30,26 +30,26 @@ float AABox::getArea() const {
 Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
     /* TODO */ //NOT_IMPLEMENTED;
 
-    Vector near = (cornerMin- ray.o) / ray.d;
-    Vector far = (cornerMax - ray.o) / ray.d;
+    // Vector near = (cornerMin- ray.o) / ray.d;
+    // Vector far = (cornerMax - ray.o) / ray.d;
 
-    float tMin = max(max(min(near.x, far.x),min(near.y, far.y)),min(near.z, far.z));
-    float tMax = min(min(max(near.x, far.x),max(near.y, far.y)),max(near.z, far.z));
+    // float tMin = max(max(min(near.x, far.x),min(near.y, far.y)),min(near.z, far.z));
+    // float tMax = min(min(max(near.x, far.x),max(near.y, far.y)),max(near.z, far.z));
 
-    if (tMax < 0 || tMin > tMax || tMax > FLT_MAX)
-        return Intersection::failure();
-    if (tMin > tmax || tMin < 0)
-        return Intersection::failure();
+    // if (tMax < 0 || tMin > tMax || tMax > FLT_MAX)
+    //     return Intersection::failure();
+    // if (tMin > tmax || tMin < 0)
+    //     return Intersection::failure();
 
-    Vector normal;
-    normal = tMin == near.x ? Vector(-1, 0, 0) : normal;
-    normal = tMin == far.x ? Vector(1, 0, 0) : normal;
-    normal = tMin == near.y ? Vector(0, -1, 0) : normal;
-    normal = tMin == far.y ? Vector(0, 1, 0) : normal;
-    normal = tMin == near.z ? Vector(0, 0, -1) : normal;
-    normal = tMin == far.z ? Vector(0, 0, 1) : normal;
+    // Vector normal;
+    // normal = tMin == near.x ? Vector(-1, 0, 0) : normal;
+    // normal = tMin == far.x ? Vector(1, 0, 0) : normal;
+    // normal = tMin == near.y ? Vector(0, -1, 0) : normal;
+    // normal = tMin == far.y ? Vector(0, 1, 0) : normal;
+    // normal = tMin == near.z ? Vector(0, 0, -1) : normal;
+    // normal = tMin == far.z ? Vector(0, 0, 1) : normal;
 
-    return Intersection(tMin, ray, this, normal, ray.getPoint(tMin));
+    // return Intersection(tMin, ray, this, normal, ray.getPoint(tMin));
 }
 
 }
