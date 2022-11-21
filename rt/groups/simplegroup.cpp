@@ -11,7 +11,7 @@ Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) cons
     Intersection _intersection;
     bool status_found = false;
 
-    for(i = 0; i != this->primitives.size(); i++) {
+    for(int i = 0; i != this->primitives.size(); i++) {
       Intersection intersection = primitives[i]->intersect(ray, tmax);
       float distance = intersection.distance;
 
@@ -35,7 +35,6 @@ void SimpleGroup::rebuildIndex() {
 void SimpleGroup::add(Primitive* p) {
     /* TODO */ //NOT_IMPLEMENTED;
     SimpleGroup::primitives.push_back(p);
-    bbox.extend(p->getBounds());
 }
 
 void SimpleGroup::setMaterial(Material* m) {
