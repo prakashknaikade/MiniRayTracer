@@ -15,7 +15,7 @@ Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) cons
       Intersection intersection = primitives[i]->intersect(ray, tmax);
       float distance = intersection.distance;
 
-      if (intersection && (distance < tmax)){
+      if (intersection && (distance < tmax)&& (distance > epsilon)){
           tmax = distance;
           _intersection = intersection;
           status_found = true;
