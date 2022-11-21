@@ -7,15 +7,35 @@ BBox SimpleGroup::getBounds() const {
 }
 
 Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) const {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    Intersection _intersection;
+    bool status_found = false;
+
+    for(i = 0; i != this->primitives.size(); i++) {
+      Intersection intersection = primitives[i]->intersect(ray, tmax);
+      float distance = intersection.distance;
+
+      if (intersection && (distance < tmax)){
+          tmax = distance;
+          _intersection = intersection;
+          status_found = true;
+      }
+    }
+    if (status_found)
+        return _intersection;
+    else
+        return Intersection::failure();
 }
+
 
 void SimpleGroup::rebuildIndex() {
     //do nothing
 }
 
 void SimpleGroup::add(Primitive* p) {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    SimpleGroup::primitives.push_back(p);
+    bbox.extend(p->getBounds());
 }
 
 void SimpleGroup::setMaterial(Material* m) {

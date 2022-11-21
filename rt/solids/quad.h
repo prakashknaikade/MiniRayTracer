@@ -14,6 +14,16 @@ public:
     virtual Intersection intersect(const Ray& ray, float tmin = 0, float tmax = FLT_MAX) const;
     virtual Sample sample() const;
     virtual float getArea() const;
+private:
+  	Point p1;
+  	Point p2;
+  	Point p3;
+  	Point p4;
+
+  	Vector span1;
+  	Vector span2;
+  	Vector normal;
+  	Point center;
 };
 
 }
