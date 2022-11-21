@@ -29,8 +29,8 @@ float AABox::getArea() const {
 Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
     /* TODO */ //NOT_IMPLEMENTED;
 
-    Vector near = (CornerMin- ray.o) / ray.d;
-    Vector far = (CornerMax - ray.o) / ray.d;
+    Vector near = (cornerMin- ray.o) / ray.d;
+    Vector far = (cornerMax - ray.o) / ray.d;
 
     float tMin = max(max(min(near.x, far.x),min(near.y, far.y)),min(near.z, far.z));
     float tMax = min(min(max(near.x, far.x),max(near.y, far.y)),max(near.z, far.z));
