@@ -1,5 +1,9 @@
 #include <rt/integrators/castingdist.h>
+#include <core/vector.h>
 #include <rt/intersection.h>
+#include <rt/world.h>
+#include <rt/solids/solid.h>
+
 
 namespace rt {
 
