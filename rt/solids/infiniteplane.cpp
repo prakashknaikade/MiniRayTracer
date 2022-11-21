@@ -5,8 +5,11 @@ namespace rt {
 InfinitePlane::InfinitePlane(const Point& origin, const Vector& normal, CoordMapper* texMapper, Material* material)
 {
     /* TODO */
-    InfinitePlane::origin = origin;
-    InfinitePlane::normal = normal;
+    this->mOrigin = origin;
+    this->mNormal = normal.normalize();
+    setMaterial(material);
+    setCoordMapper(texMapper);
+
 }
 
 BBox InfinitePlane::getBounds() const {
@@ -14,15 +17,19 @@ BBox InfinitePlane::getBounds() const {
 }
 
 Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) const {
-    /* TODO */ NOT_IMPLEMENTED;
-    if (dot(ray.d, InfinitePlane::normal) == 0.0) 
-        return Intersection::failure();
-	
-    float t = - dot(ray.o - origin, normal) / dot(ray.d, InfinitePlane::normal);
-	if (t > tmax || t < 0) 
-        return Intersection::failure();
-	
-    return Intersection(t, ray, this, InfinitePlane::normal, ray.getPoint(t));
+    // /* TODO */ NOT_IMPLEMENTED;
+    float denom = dot(ray.d, this->mNormal);
+    if (fabsf(denom) <= epsilon)
+        return Intersection::failure(); 
+
+    float t = -dot(ray.o - mOrigin, mNormal) / denom;
+
+    if (t < tmin) return Intersection::failure();
+
+    if (t < tmax) {
+        Point surfacePoint = ray.getPoint(t);
+        return Intersection(t, ray, this, mNormal, surfacePoint);
+    }
 }
 
 Solid::Sample InfinitePlane::sample() const {
