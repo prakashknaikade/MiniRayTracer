@@ -29,8 +29,8 @@ Intersection Sphere::intersect(const Ray& ray, float tmin, float tmax) const {
 	if (d < 0.0f) 
         return Intersection::failure();
     else {
-  			float t1 = (- B + sqrt(d)) / (2 * M);
-  			float t2 = (- B - sqrt(d)) / (2 * M);
+  			float t1 = (- M + sqrt(d)) / (2 * M);
+  			float t2 = (- M - sqrt(d)) / (2 * M);
 
   			bool t1_val = valid(t1, tmax);
   			bool t2_val = valid(t2, tmax);
