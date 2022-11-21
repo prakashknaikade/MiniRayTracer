@@ -1,4 +1,5 @@
 #include <rt/solids/aabox.h>
+#include <core/point.h>
 
 namespace rt {
 
