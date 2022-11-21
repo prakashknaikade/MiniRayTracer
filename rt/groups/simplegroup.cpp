@@ -11,7 +11,7 @@ Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) cons
     Intersection _intersection;
     bool status_found = false;
 
-    for(int i = 0; i < this->primitives.size(); i++) {
+    for(std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
       Intersection intersection = primitives[i]->intersect(ray, tmax);
       float distance = intersection.distance;
 
