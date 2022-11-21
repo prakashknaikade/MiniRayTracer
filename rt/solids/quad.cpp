@@ -39,7 +39,7 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
 
     if (find1 && find2 && find3 && find4) {
         float u, v;
-        Vector strike_v1 = strike__point - v1;
+        Vector strike_v1 = strike__point - p1;
 
         if (fabs(span1.x * span2.y - span2.x * span1.y) >= epsilon) {
             u = (strike_v1.x * span2.y - span2.x * strike_v1.y) / (span1.x * span2.y - span2.x * span1.y);
