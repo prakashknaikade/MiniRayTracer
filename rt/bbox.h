@@ -12,11 +12,15 @@ class Ray;
 class BBox {
 public:
     Point min, max;
+    bool IsEmpty;
 
     BBox() {}
     BBox(const Point& min, const Point& max)
     {
         /* TODO */
+        this->min = min;
+        this->max = max;
+        IsEmpty = false;
     }
 
     static BBox empty();
@@ -26,11 +30,13 @@ public:
     void extend(const BBox& bbox);
 
     Vector diagonal() const {
-        /* TODO */ NOT_IMPLEMENTED;
+        // /* TODO */ NOT_IMPLEMENTED;
+        return max - min;
     }
 
     float area() const {
-        /* TODO */ NOT_IMPLEMENTED;
+        // /* TODO */ NOT_IMPLEMENTED;
+        return (max.x - min.x) * (max.y - min.y) * (max.z - min.z);
     }
 
     std::pair<float, float> intersect(const Ray& ray) const;
