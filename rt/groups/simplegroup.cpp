@@ -16,7 +16,7 @@ Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) cons
       Intersection intersection = primitives[i]->intersect(ray, tmax);
       float distance = intersection.distance;
 
-      if (intersection && (distance < tmax)&& (distance > epsilon)){
+      if (intersection && (distance < tmax)&& (distance > tmin)){
           tmax = distance;
           _intersection = intersection;
           status_found = true;
@@ -41,15 +41,16 @@ void SimpleGroup::add(Primitive* p) {
 
 void SimpleGroup::setMaterial(Material* m) {
     // /* TODO */ NOT_IMPLEMENTED;
-    // for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
-    //     this->primitives[i]->setMaterial(m);
-    // }
-    this->setMaterial(m);
+    for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
+        this->primitives[i]->setMaterial(m);
+    }
 }
 
 void SimpleGroup::setCoordMapper(CoordMapper* cm) {
     //  /* TODO */ NOT_IMPLEMENTED;
-    this->setCoordMapper(cm);
+    for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
+        this->primitives[i]->setCoordMapper(cm);
+    }
 }
 
 }
