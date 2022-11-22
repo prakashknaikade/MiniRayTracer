@@ -18,6 +18,7 @@ public:
 private:
     Point mCorner1;
     Point mCorner2;
+    BBox mBBox;
 };
 
 }

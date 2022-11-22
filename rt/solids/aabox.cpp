@@ -10,11 +10,15 @@ AABox::AABox(const Point& corner1, const Point& corner2, CoordMapper* texMapper,
 	this->setMaterial(material);
 	this->mCorner1 = corner1;
 	this->mCorner2 = corner2;
+
+	Point minCorner = min(mCorner1, mCorner2);
+	Point maxCorner = max(mCorner1, mCorner2);
+	mBBox = BBox(minCorner, maxCorner);
 }
 
 BBox AABox::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
-
+    // /* TODO */ NOT_IMPLEMENTED;
+	return mBBox;
 }
 
 Solid::Sample AABox::sample() const {
