@@ -9,10 +9,16 @@ Sphere::Sphere(const Point& center, float radius, CoordMapper* texMapper, Materi
 	this->texMapper = texMapper;
 	this->mCenter = center;
 	this->mR = radius;
+
+	Point min = mCenter - Vector(mR, mR, mR);
+	Point max = mCenter + Vector(mR, mR, mR);
+
+	mBBox = BBox(min, max);
 }
 
 BBox Sphere::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+	return mBBox;
 }
 
 bool Sphere::solveQuardaticEquation(float a, float b, float c, float &t0, float &t1) const {

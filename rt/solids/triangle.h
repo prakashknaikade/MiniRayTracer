@@ -27,6 +27,8 @@ private:
 	Vector mVect2;
 
 	Vector mNormal;
+
+    BBox mBBox;
 };
 
 }

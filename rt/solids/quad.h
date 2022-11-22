@@ -25,6 +25,8 @@ private:
   	Vector span2;
   	Vector normal;
   	Point center;
+
+	BBox mBBox;
 };
 
 }

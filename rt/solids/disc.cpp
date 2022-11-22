@@ -11,10 +11,20 @@ Disc::Disc(const Point& center, const Vector& normal, float radius, CoordMapper*
 	setCoordMapper(texMapper);
 	this->mRadius = radius;
 	
+	float x = sqrt(mNormal.y * mNormal.y + mNormal.z * mNormal.z);
+	float y = sqrt(mNormal.x * mNormal.x + mNormal.z * mNormal.z);
+	float z = sqrt(mNormal.y * mNormal.y + mNormal.x * mNormal.x);
+
+	Vector e = Vector(x, y, z);
+	Point min = mOrigin - mRadius * e;
+	Point max = mOrigin + mRadius * e;
+
+	mBBox = BBox(min, max);
 }
 
 BBox Disc::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+	return mBBox;
 }
 
 Intersection Disc::intersect(const Ray& ray, float tmin, float tmax) const {

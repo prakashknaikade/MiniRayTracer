@@ -18,10 +18,23 @@ Quad::Quad(const Point& origin, const Vector& span1, const Vector& span2, CoordM
 
     Quad::center = (0.5*Quad::span1) + (0.5*Quad::span2) + p1;
 
+    float minx = min(p1.x, p2.x, min(p3.x, p4.x));
+    float miny = min(p1.y, p2.y, min(p3.y, p4.y));
+    float minz = min(p1.z, p2.z, min(p3.z, p4.z));
+
+    float maxx = max(p1.x, p2.x, max(p3.x, p4.x));
+    float maxy = max(p1.y, p2.y, max(p3.y, p4.y));
+    float maxz = max(p1.z, p2.z, max(p3.z, p4.z));
+
+    Point bmin = Point(minx, miny, minz);
+    Point bmax = Point(maxx, maxy, maxz);
+
+    mBBox = BBox(bmin, bmax);
 }
 
 BBox Quad::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    return mBBox;
 }
 
 Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {

@@ -19,6 +19,7 @@ private:
     Point mOrigin;
     Vector mNormal;
     float mRadius;
+    BBox mBBox;
     
 };
 

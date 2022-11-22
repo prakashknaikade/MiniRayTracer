@@ -18,6 +18,8 @@ public:
 private:
     Point mCenter;
     float mR;
+
+    BBox mBBox;
 };
 
 }

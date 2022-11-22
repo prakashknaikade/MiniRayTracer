@@ -22,6 +22,8 @@ Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material
     this -> bmin = Point(minx, miny, minz);
     this -> bmax = Point(maxx, maxy, maxz);
 
+    mBBox = BBox(bmin, bmax); 
+
 }
 
 Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMapper* texMapper, Material* material)
@@ -47,10 +49,13 @@ Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMappe
 
     this -> bmin = Point(minx, miny, minz);
     this -> bmax = Point(maxx, maxy, maxz);
+
+    mBBox = BBox(bmin, bmax); 
 }
 
 BBox Triangle::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    return mBBox;
 }
 
 Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {

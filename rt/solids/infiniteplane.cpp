@@ -10,10 +10,12 @@ InfinitePlane::InfinitePlane(const Point& origin, const Vector& normal, CoordMap
     setMaterial(material);
     setCoordMapper(texMapper);
 
+    mBBox = BBox::full();
 }
 
 BBox InfinitePlane::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    return mBBox;
 }
 
 Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) const {

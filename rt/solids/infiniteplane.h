@@ -18,6 +18,8 @@ public:
 private:
     Point mOrigin;
     Vector mNormal;
+
+    BBox mBBox;
 };
 
 }
