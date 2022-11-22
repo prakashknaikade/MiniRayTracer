@@ -15,6 +15,7 @@ public:
     virtual void setCoordMapper(CoordMapper* cm);
 
     std::vector<Primitive*> primitives;
+    BBox mBBox;
 };
 
 }

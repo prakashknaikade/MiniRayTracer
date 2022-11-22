@@ -3,7 +3,8 @@
 namespace rt {
 
 BBox SimpleGroup::getBounds() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    return mBBox;
 }
 
 Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) const {
@@ -35,6 +36,7 @@ void SimpleGroup::rebuildIndex() {
 void SimpleGroup::add(Primitive* p) {
     /* TODO */ //NOT_IMPLEMENTED;
     SimpleGroup::primitives.push_back(p);
+    mBBox.extend(p->getBounds());
 }
 
 void SimpleGroup::setMaterial(Material* m) {
@@ -45,7 +47,8 @@ void SimpleGroup::setMaterial(Material* m) {
 }
 
 void SimpleGroup::setCoordMapper(CoordMapper* cm) {
-     /* TODO */ NOT_IMPLEMENTED;
+    //  /* TODO */ NOT_IMPLEMENTED;
+    this->setCoordMapper(cm);
 }
 
 }
