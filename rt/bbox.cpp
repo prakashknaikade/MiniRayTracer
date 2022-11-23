@@ -84,13 +84,13 @@ bool BBox::isUnbound() const {
     std::cout << "min" << min.x << " " << min.y << " " << min.z << "\n";
     std::cout << "max" << max.x << " " << max.y << " " << max.z << "\n";
     std::cout << FLT_MIN << " " << FLT_MAX;
-    if (min.x <= FLT_MIN) return true;
-    if (min.y <= FLT_MIN) return true;
-    if (min.z <= FLT_MIN) return true;
+    if (abs(min.x) <= FLT_MIN) return true;
+    if (abs(min.y) <= FLT_MIN) return true;
+    if (abs(min.z) <= FLT_MIN) return true;
 
-    if (max.x >= FLT_MAX) return true;
-    if (max.y >= FLT_MAX) return true;
-    if (max.z >= FLT_MAX) return true;
+    if (abs(max.x) >= FLT_MAX) return true;
+    if (abs(max.y) >= FLT_MAX) return true;
+    if (abs(max.z) >= FLT_MAX) return true;
 
     return false;
 }
