@@ -81,13 +81,16 @@ std::pair<float, float> BBox::intersect(const Ray& ray) const {
 
 bool BBox::isUnbound() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    if (min.x == FLT_MIN) return true;
-    if (min.y == FLT_MIN) return true;
-    if (min.z == FLT_MIN) return true;
+    std::cout << "min" << min.x << min.y << min.z;
+    std::cout << "max" << max.x << max.y << max.z;
+    std::cout << FLT_MIN << FLT_MAX;
+    if (min.x <= FLT_MIN) return true;
+    if (min.y <= FLT_MIN) return true;
+    if (min.z <= FLT_MIN) return true;
 
-    if (max.x == FLT_MAX) return true;
-    if (max.y == FLT_MAX) return true;
-    if (max.z == FLT_MAX) return true;
+    if (max.x >= FLT_MAX) return true;
+    if (max.y >= FLT_MAX) return true;
+    if (max.z >= FLT_MAX) return true;
 
     return false;
 }
