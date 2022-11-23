@@ -14,7 +14,7 @@ BBox BBox::empty() {
 BBox BBox::full() {
     // /* TODO */ NOT_IMPLEMENTED;
     BBox newBBox;
-    newBBox.min = Point(FLT_MIN, FLT_MIN, FLT_MIN);
+    newBBox.min = Point(0, 0, 0);
     // newBBox.min = Point(-FLT_MAX, -FLT_MAX, -FLT_MAX);
     newBBox.max = Point(FLT_MAX, FLT_MAX, FLT_MAX);
     return newBBox;
@@ -85,9 +85,11 @@ bool BBox::isUnbound() const {
     // std::cout << "min" << min.x << " " << min.y << " " << min.z << "\n";
     // std::cout << "max" << max.x << " " << max.y << " " << max.z << "\n";
     // std::cout << FLT_MIN << " " << FLT_MAX << "\n";
-    if (abs(min.x) <= FLT_MIN) return true;
-    if (abs(min.y) <= FLT_MIN) return true;
-    if (abs(min.z) <= FLT_MIN) return true;
+
+    if (min.x <= 0) return true;
+    if (min.y <= 0) return true;
+    if (min.z <= 0) return true;
+
     // if (min.x <= -FLT_MAX) return true;
     // if (min.y <= -FLT_MAX) return true;
     // if (min.z <= -FLT_MAX) return true;
