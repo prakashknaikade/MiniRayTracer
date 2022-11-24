@@ -40,9 +40,6 @@ Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
     Point minCorner = min(mCorner1, mCorner2);
 	Point maxCorner = max(mCorner1, mCorner2);
 
-	Point mCorner1 = minCorner;
-	Point mCorner2 = maxCorner;
-
 	if (ray.d.x == 0)
 		if (ray.o.x < minCorner.x || ray.o.x > maxCorner.x) return Intersection::failure();
 
@@ -66,9 +63,9 @@ Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
 
 	float maxt0 = max(max(t0x, t0y), t0z);
 	Vector normal0;
-	if (maxt0 == t0x) normal0 = Vector(-1, 0, 0);
-	if (maxt0 == t0y) normal0 = Vector(0, -1, 0);
-	if (maxt0 == t0z) normal0 = Vector(0, 0, -1);
+	if (maxt0 == t0x) normal0 = Vector(1, 0, 0);
+	if (maxt0 == t0y) normal0 = Vector(0, 1, 0);
+	if (maxt0 == t0z) normal0 = Vector(0, 0, 1);
 
 	Vector normal1;
 	float mint1 = min(min(t1x, t1y), t1z);
