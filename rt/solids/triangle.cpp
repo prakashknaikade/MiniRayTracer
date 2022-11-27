@@ -60,6 +60,7 @@ BBox Triangle::getBounds() const {
 
 Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
     // /* TODO */ NOT_IMPLEMENTED;
+    // https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection
     Vector v1v2 = v2 - v1;
     Vector v1v3 = v3 - v1;
     Vector planeNormal = cross(v1v2, v1v3);

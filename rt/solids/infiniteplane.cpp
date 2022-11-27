@@ -20,6 +20,9 @@ BBox InfinitePlane::getBounds() const {
 
 Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) const {
     // /* TODO */ NOT_IMPLEMENTED;
+
+    // if fabs(dot(normal, ray.d)) > epsilon:
+    //      implement equation with num= dot(mOrigin - ray.o, mNormal) den = dot(ray.d, this->mNormal)
     float denom = dot(ray.d, this->mNormal);
     if (fabsf(denom) <= epsilon)
         return Intersection::failure(); 

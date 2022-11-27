@@ -63,15 +63,15 @@ Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
 
 	float maxt0 = max(max(t0x, t0y), t0z);
 	Vector normal0;
-	if (maxt0 == t0x) normal0 = Vector(1, 0, 0);
-	if (maxt0 == t0y) normal0 = Vector(0, 1, 0);
-	if (maxt0 == t0z) normal0 = Vector(0, 0, 1);
+	if (maxt0 == t0x) normal0 = Vector(-1, 0, 0);
+	if (maxt0 == t0y) normal0 = Vector(0, -1, 0);
+	if (maxt0 == t0z) normal0 = Vector(0, 0, -1);
 
 	Vector normal1;
 	float mint1 = min(min(t1x, t1y), t1z);
-	if (mint1 == t1x) normal1 = Vector(-1, 0, 0);
-	if (mint1 == t1y) normal1 = Vector(0, -1, 0);
-	if (mint1 == t1z) normal1 = Vector(0, 0, -1);
+	if (mint1 == t1x) normal1 = Vector(1, 0, 0);
+	if (mint1 == t1y) normal1 = Vector(0, 1, 0);
+	if (mint1 == t1z) normal1 = Vector(0, 0, 1);
 
 
 	if (maxt0 >= mint1) return Intersection::failure();
