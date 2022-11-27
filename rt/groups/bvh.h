@@ -6,6 +6,34 @@
 
 namespace rt {
 
+class BVHNode {
+public:
+	BVHNode() {this->mBBox = BBox::empty(); area = 0;}
+
+	BBox mBBox;
+	BVHNode* left = nullptr;
+	BVHNode* right = nullptr;
+	bool isLeaf;
+	float area;
+
+	std::vector<Primitive*> primitives;
+
+	virtual void add(Primitive* p) {
+        this->primitives.push_back(p);
+        mBBox.extend(p->getBounds());
+        area = mBBox.area();
+	};
+
+	virtual BBox getBounds() const {
+		return mBBox;
+	};
+
+	virtual float getArea() const {
+		return area;
+	};
+};
+
+
 class BVH : public Group {
 public:
     BVH();
@@ -16,6 +44,11 @@ public:
     virtual void add(Primitive* p);
     virtual void setMaterial(Material* m);
     virtual void setCoordMapper(CoordMapper* cm);
+
+    BVHNode* root;
+    virtual void processNode(BVHNode* node);
+    virtual float split(int axisIndex, BVHNode* node);
+    BBox fullbbox;
 
     // Do not use this structure as your node layout:
     // It is inefficient and has a large memory footprint.
@@ -47,6 +80,7 @@ public:
         virtual const SerializedNode& readNode(size_t nodeId) = 0;
     };
     void deserialize(Input& input);
+
 };
 
 }
