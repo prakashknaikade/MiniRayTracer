@@ -131,12 +131,12 @@ Intersection BVH::intersect(const Ray& ray, float tmin, float tmax) const {
         }
         else
         {
-            BBox left = node->left->bbox;
+            BBox left = node->left->mBBox;
             auto tleft = left.intersect(ray);
             if(tleft.first < tleft.second)
                 nodes.push_back(node->left);
 
-            BBox right = node->right->bbox;
+            BBox right = node->right->mBBox;
             auto tright = right.intersect(ray);
             if(tright.first < tright.second)
                 nodes.push_back(node->right);
