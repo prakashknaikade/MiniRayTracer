@@ -108,7 +108,41 @@ BBox BVH::getBounds() const {
 }
 
 Intersection BVH::intersect(const Ray& ray, float tmin, float tmax) const {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ //NOT_IMPLEMENTED;
+    BVHNode* node = new BVHNode();
+    Intersection nearestIntersection = Intersection::failure();
+    Intersection currentIntersection;
+    std::vector<BVHNode*> nodes;
+
+    nodes.push_back(this->root);
+
+    while (!nodes.empty()) {
+        node = nodes.back();
+        nodes.pop_back();
+
+        if (node->isLeaf) {
+            for (auto primObj : node->primitives) {
+                currentIntersection = primObj->intersect(ray, tmax);
+                if (currentIntersection) {
+                    tmax = currentIntersection.distance;
+                    nearestIntersection = currentIntersection;
+                }
+            }
+        }
+        else
+        {
+            BBox left = node->left->bbox;
+            Intersection tleft = left.intersect(ray);
+            if(tleft.first < tleft.second)
+                nodes.push_back(node->left);
+
+            BBox right = node->right->bbox;
+            Intersection tright = right.intersect(ray);
+            if(tright.first < tright.second)
+                nodes.push_back(node->right);
+        }
+    }
+    return nearestIntersection;
 }
 
 void BVH::add(Primitive* p) {
