@@ -63,13 +63,11 @@ void BVH::processNode(BVHNode* node) {
 
         if (node->left->primitives.size() == 0) {
             node->left->add(node->right->primitives[0]);
-            // need to update area as well
             node->right->primitives.erase(node->right->primitives.begin());
         }
 
         else if (node->right->primitives.size() == 0) {
             node->right->add(node->left->primitives[0]);
-            // need to update area as well
             node->left->primitives.erase(node->left->primitives.begin());
         }
 
