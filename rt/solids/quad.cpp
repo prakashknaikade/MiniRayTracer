@@ -43,7 +43,8 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
         return Intersection::failure();
     
     float t = dot(center - ray.o, Quad::normal) / dot(ray.d, Quad::normal);
-    if (t > tmax || t < tmin) 
+    // std::cout << "t " << t << " tmin " << tmin << " tmax " << tmax << '\n';
+    if (t > tmax) //|| t < tmin) 
         return Intersection::failure();
     
     Point strike__point = ray.getPoint(t);

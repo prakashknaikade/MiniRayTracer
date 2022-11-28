@@ -76,7 +76,8 @@ Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
     if (fabsf(denom) <= epsilon)
         return Intersection::failure();
     float t = -dot(ray.o - v1, planeNormal.normalize()) / denom;
-    if (t < tmin) return Intersection::failure();
+    // std::cout << "t " << t << " tmin " << tmin << " tmax " << tmax << '\n';
+    if (t > tmax) return Intersection::failure();
     
     Point hitPoint = ray.getPoint(t);
 
@@ -90,8 +91,8 @@ Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
     float v = doubleAreaSubTriangle2 / doubleTriangleArea;
 
     float w = 1 - u - v;
-
-    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (t < tmax)) {
+    // std::cout << "u " << u << " v " << v << " w " << w << '\n';
+    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (fabs((u+v+w) - 1) < epsilon) && (t < tmax)) {
         return Intersection (t, ray, this, planeNormal, hitPoint);
     }
 

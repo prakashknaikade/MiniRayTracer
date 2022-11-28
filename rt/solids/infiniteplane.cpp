@@ -29,7 +29,7 @@ Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) co
 
     float t = -dot(ray.o - mOrigin, mNormal) / denom;
 
-    if (t < tmin || t > tmax) return Intersection::failure();
+    if (t > tmax) return Intersection::failure();
 
     
     Point surfacePoint = ray.getPoint(t);

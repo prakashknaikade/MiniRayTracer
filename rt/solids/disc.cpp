@@ -33,8 +33,8 @@ Intersection Disc::intersect(const Ray& ray, float tmin, float tmax) const {
 	if (denom == 0.0) return Intersection::failure(); 
 
 	float t = -dot(ray.o - mOrigin, mNormal) / denom;
-
-	if (t > tmax || t < tmin) return Intersection::failure();
+	
+	if (t > tmax) return Intersection::failure();
 
 	Point surfacePoint = ray.getPoint(t);
 

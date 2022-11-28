@@ -76,9 +76,9 @@ Intersection AABox::intersect(const Ray& ray, float tmin, float tmax) const {
 
 	if (maxt0 >= mint1) return Intersection::failure();
 
-
-	bool t1Valid = maxt0 <= tmax && maxt0 >= tmin;
-	bool t2Valid = mint1 <= tmax && mint1 >= tmin;
+	// std::cout << "t " << maxt0 << " " << mint1 << " tmin " << tmin << " tmax " << tmax << '\n';
+	bool t1Valid = maxt0 < tmax; // && maxt0 >= tmin;
+	bool t2Valid = mint1 < tmax; // && mint1 >= tmin;
 
 	if (!t1Valid && !t2Valid) return Intersection::failure();
 
