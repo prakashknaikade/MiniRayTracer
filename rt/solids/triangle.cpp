@@ -92,7 +92,7 @@ Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
 
     float w = 1 - u - v;
     // std::cout << "u " << u << " v " << v << " w " << w << '\n';
-    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (fabs((u+v+w) - 1) < epsilon) && (t < tmax)) {
+    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (fabsf((u+v+w) - 1) <= epsilon)) {
         return Intersection (t, ray, this, planeNormal, hitPoint);
     }
 
