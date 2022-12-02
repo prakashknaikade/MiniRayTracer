@@ -40,6 +40,7 @@ public:
     }
 
     std::pair<float, float> intersect(const Ray& ray) const;
+    Point centroid() const;
 
     bool isUnbound() const;
 };

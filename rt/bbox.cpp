@@ -1,6 +1,9 @@
 #include <rt/bbox.h>
+#include <rt/primitive.h>
 #include <rt/ray.h>
-#include <cfloat>
+#include <algorithm>
+
+using namespace std;
 
 namespace rt {
 
@@ -22,42 +25,33 @@ BBox BBox::full() {
 
 void BBox::extend(const Point& point) {
     // /* TODO */ NOT_IMPLEMENTED;
-    if (IsEmpty)
-    {
+     if (IsEmpty) {
         IsEmpty = false;
         min = point;
         max = point;
-
         return;
     }
-
-    if (min.x > point.x) min.x = point.x;
-    if (min.y > point.y) min.y = point.y;
-    if (min.z > point.z) min.z = point.z;
-
-    if (max.x < point.x) max.x = point.x;
-    if (max.y < point.y) max.y = point.y;
-    if (max.z < point.z) max.z = point.z;
+    min = rt::min(this->min, point);
+    max = rt::max(this->max, point);
+    return;
 }
 
 void BBox::extend(const BBox& bbox) {
     // /* TODO */ NOT_IMPLEMENTED;
-    if (IsEmpty)
-    {
-        IsEmpty = false;
+    if (IsEmpty) {
+        IsEmpty = bbox.IsEmpty;
         min = bbox.min;
         max = bbox.max;
-
         return;
     }
-
-    this->extend(bbox.min);
-    this->extend(bbox.max);
-
+    min = rt::min(this->min, bbox.min);
+    max = rt::max(this->max, bbox.max);
+    return;
 }
 
 std::pair<float, float> BBox::intersect(const Ray& ray) const {
     // /* TODO */ NOT_IMPLEMENTED;
+    // checks and aabox stuff check parallel
     float t0x = (min.x - ray.o.x) / ray.d.x;
     float t1x = (max.x - ray.o.x) / ray.d.x;
     if (t0x > t1x) std::swap(t0x, t1x);
@@ -81,15 +75,19 @@ std::pair<float, float> BBox::intersect(const Ray& ray) const {
 
 bool BBox::isUnbound() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    if (min.x <= -FLT_MAX) return true;
-    if (min.y <= -FLT_MAX) return true;
-    if (min.z <= -FLT_MAX) return true;
+    if (min.x == -FLT_MAX) return true;
+    if (min.y == -FLT_MAX) return true;
+    if (min.z == -FLT_MAX) return true;
 
-    if (max.x >= FLT_MAX) return true;
-    if (max.y >= FLT_MAX) return true;
-    if (max.z >= FLT_MAX) return true;
+    if (max.x == FLT_MAX) return true;
+    if (max.y == FLT_MAX) return true;
+    if (max.z == FLT_MAX) return true;
 
     return false;
+}
+
+Point BBox::centroid() const {
+  return Point((min.x + max.x)/2, (min.y + max.y)/2, (min.z + max.z)/2);
 }
 
 }
