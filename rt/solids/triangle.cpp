@@ -11,6 +11,10 @@ Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material
     v2 = vertices[1];
     v3 = vertices[2];
 
+    mVect1 = (v2 - v1).normalize();
+    mVect2 = (v3 - v1).normalize();
+    mNormal = cross(mVect1, mVect2).normalize();
+
     float minx = min(v1.x, v2.x, v3.x);
     float miny = min(v1.y, v2.y, v3.y);
     float minz = min(v1.z, v2.z, v3.z);
@@ -55,48 +59,43 @@ Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMappe
 
 BBox Triangle::getBounds() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    return mBBox;
+    // return mBBox;
+    Point min = rt::min(rt::min(v1, v2), v3);
+    Point max = rt::max(rt::max(v1, v2), v3);
+	return BBox(min, max);
 }
 
 Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
-    // /* TODO */ NOT_IMPLEMENTED;
-    // https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection
-    Vector v1v2 = v2 - v1;
-    Vector v1v3 = v3 - v1;
-    Vector planeNormal = cross(v1v2, v1v3);
-    float doubleTriangleArea = planeNormal.length();
+    // /* TODO */
+    // IMPLEMENTED FROM TUTORIAL: https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection
+    if (dot(ray.d, this->mNormal) == 0.0) return Intersection::failure();
+        float t = - dot(ray.o - v1, mNormal) / dot(ray.d, this->mNormal);
+    if (t > tmax || t < epsilon) return Intersection::failure();
 
-    float dotProductRayNormal = dot(ray.d, planeNormal);
-    if (dotProductRayNormal == 0) {
+    Vector e1 = v2 - v1;
+    Vector e2 = v3 - v1;
+    Vector pvec = cross(ray.d, e2);
+    float det = dot(e1, pvec);
+
+    if (fabs(det) < epsilon)
         return Intersection::failure();
-    }
 
+    float invDet = 1.0 / det;
+    Vector tvec = ray.o - v1;
 
-    float denom = dot(ray.d, planeNormal.normalize());
-    if (fabsf(denom) <= epsilon)
+    float u = dot(tvec, pvec) * invDet;
+
+    if (u < 0 || u > 1)
         return Intersection::failure();
-    float t = -dot(ray.o - v1, planeNormal.normalize()) / denom;
-    // std::cout << "t " << t << " tmin " << tmin << " tmax " << tmax << '\n';
-    if (t > tmax) return Intersection::failure();
-    
-    Point hitPoint = ray.getPoint(t);
 
-    Vector v2v3 = v3 - v2;
-    Vector v2P = hitPoint - v2;
-    float doubleAreaSubTriangle1 = cross(v2P, v2v3).length();
-    float u = doubleAreaSubTriangle1 / doubleTriangleArea;
+    Vector qvec = cross(tvec, e1);
+    float v = dot(ray.d, qvec) * invDet;
 
-    Vector v3P = hitPoint - v3;
-    float doubleAreaSubTriangle2 = cross(v3P, v1v3).length();
-    float v = doubleAreaSubTriangle2 / doubleTriangleArea;
+    if (v < 0 || u + v > 1)
+        return Intersection::failure();
 
-    float w = 1 - u - v;
-    // std::cout << "u " << u << " v " << v << " w " << w << '\n';
-    if ((u >= 0 && u <= 1) && (v >= 0 && v <= 1) && (w >= 0 && w <= 1) && (fabsf((u+v+w) - 1) <= epsilon)) {
-        return Intersection (t, ray, this, planeNormal, hitPoint);
-    }
-
-    return Intersection::failure();
+    t = dot(e2, qvec) * invDet;
+    return Intersection(t, ray, this, mNormal, Point(1-u-v, u, v));
 }
 
 Solid::Sample Triangle::sample() const {
