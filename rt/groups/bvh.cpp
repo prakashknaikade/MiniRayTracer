@@ -18,10 +18,8 @@ void BVH::rebuildIndex() {
 }
 
 float BVH::findSAHSplit(int axisIndex, BVHNode* node) {
-    // set elements of arrays to 0 for new node
 
-    float primMid, prim2Mid; //int num;
-    // float axisLength = node->bbox.max.getAxis(axisIndex) - node->bbox.min.getAxis(axisIndex);
+    float primMid, prim2Mid; 
     float leftSA = 0, leftNum, cBest = FLT_MAX, cLeft, cRight, splitIndex;
     BBox nodeBBox = node->getBounds();
     for(std::vector<Primitive *>::size_type i = 0; i != node->primitives.size(); i++) {

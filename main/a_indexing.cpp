@@ -21,6 +21,7 @@ void a_indexing() {
     scene->add(new Sphere(Point(4.5f,  .5f,  -1), 0.5 , nullptr, nullptr));
 
     loadOBJ(scene, "models/", "cow.obj");
+    // loadOBJ(scene, "models/", "deer.obj");
   
 	scene->rebuildIndex();
     World world;
@@ -37,4 +38,11 @@ void a_indexing() {
     Renderer engine2(&cam2, &integrator);
     engine2.render(img);
     img.writeEXR("a3-2.exr");
+
+    // PerspectiveCamera cam3(Point(300,50,0), Vector(-1, 0, 0), Vector(0, 1, 0), pi/8, pi/6);
+    // RayCastingIntegrator integrator(&world);
+
+    // Renderer engine1(&cam3, &integrator);
+    // engine1.render(img);
+    // img.writeEXR("a3-deer.exr");
 }
