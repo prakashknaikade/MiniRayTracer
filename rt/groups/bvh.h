@@ -47,8 +47,9 @@ public:
 
     BVHNode* root;
     virtual void processNode(BVHNode* node);
-    virtual float split(int axisIndex, BVHNode* node);
-    BBox fullbbox;
+    virtual float split(int axisIndex, BVHNode* node, int vec_size); 
+    virtual float findSAHSplit(int axisIndex, BVHNode* node);
+    bool doSAHSplit = false;
 
     // Do not use this structure as your node layout:
     // It is inefficient and has a large memory footprint.
