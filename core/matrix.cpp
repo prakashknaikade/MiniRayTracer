@@ -146,6 +146,8 @@ float Matrix::det() const {
     result[3] = -m[1][0] * m[2][1] * m[3][2] + m[1][0] * m[2][2] * m[3][1] + m[2][0] * m[1][1] * m[3][2] - m[2][0] * m[1][2] * m[3][1] - m[3][0] * m[1][1] * m[2][2] + m[3][0] * m[1][2] * m[2][1];
 
     float det = m[0][0] * result[0] + m[0][1] * result[1] + m[0][2] * result[2] + m[0][3] * result[3];
+    return(det);
+
 }
 
 Matrix Matrix::zero() {
@@ -160,7 +162,7 @@ Matrix Matrix::identity() {
     HomogeneousCoord row2(0.f, 1.f, 0.f, 0.f);
     HomogeneousCoord row3(0.f, 0.f, 1.f, 0.f);
     HomogeneousCoord row4(0.f, 0.f, 0.f, 1.f);
-    return Matrix(r1, r2, r3, r4);
+    return Matrix(row1, row2, row3, row4);
 }
 
 Matrix Matrix::system(const Vector& e1, const Vector& e2, const Vector& e3) {
