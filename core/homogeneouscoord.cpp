@@ -32,8 +32,8 @@ HomogeneousCoord::HomogeneousCoord(const Vector& vec) {
 
 float& HomogeneousCoord::operator [] (int idx) {
     /* TODO */ 
-    rt_assert(idx >= 0);
     rt_assert(idx < 4);
+    rt_assert(idx >= 0);
     switch (idx)
     {
       case 0: return x;
@@ -47,8 +47,8 @@ float& HomogeneousCoord::operator [] (int idx) {
 
 float HomogeneousCoord::operator [] (int idx) const {
     /* TODO */ 
-    rt_assert(idx >= 0);
     rt_assert(idx < 4);
+    rt_assert(idx >= 0);
     switch (idx)
     {
       case 0: return x;
