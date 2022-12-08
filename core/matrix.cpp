@@ -16,15 +16,15 @@ Matrix::Matrix(const HomogeneousCoord& r1, const HomogeneousCoord& r2, const Hom
 
 HomogeneousCoord& Matrix::operator[](int idx) {
     /* TODO */ 
-    assert(idx>=0);
-    assert(idx<=3);
+    rt_assert(idx>=0);
+    rt_assert(idx<=3);
     return(matRow[idx]);
 }
 
 HomogeneousCoord Matrix::operator[](int idx) const {
     /* TODO */ 
-    assert(idx>=0);
-    assert(idx<=3);
+    rt_assert(idx>=0);
+    rt_assert(idx<=3);
     return(matRow[idx]);
 }
 
@@ -145,7 +145,7 @@ float Matrix::det() const {
     result[2] =  m[1][0] * m[2][1] * m[3][3] - m[1][0] * m[2][3] * m[3][1] - m[2][0] * m[1][1] * m[3][3] + m[2][0] * m[1][3] * m[3][1] + m[3][0] * m[1][1] * m[2][3] - m[3][0] * m[1][3] * m[2][1];
     result[3] = -m[1][0] * m[2][1] * m[3][2] + m[1][0] * m[2][2] * m[3][1] + m[2][0] * m[1][1] * m[3][2] - m[2][0] * m[1][2] * m[3][1] - m[3][0] * m[1][1] * m[2][2] + m[3][0] * m[1][2] * m[2][1];
 
-    float det = m[0][0] * result[0][0] + m[0][1] * result[1][0] + m[0][2] * result[2][0] + m[0][3] * result[3][0];
+    float det = m[0][0] * result[0] + m[0][1] * result[1] + m[0][2] * result[2] + m[0][3] * result[3];
 }
 
 Matrix Matrix::zero() {
