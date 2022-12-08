@@ -42,6 +42,7 @@ float& HomogeneousCoord::operator [] (int idx) {
       case 3: return w;
       default: 
       throw std::invalid_argument("math parameter opt out of range!");
+    }
 
 }
 
@@ -57,6 +58,7 @@ float HomogeneousCoord::operator [] (int idx) const {
       case 3: return w;
       default: 
       throw std::invalid_argument("math parameter opt out of range!");
+    }
 }
 
 HomogeneousCoord HomogeneousCoord::operator + (const HomogeneousCoord& b) const {
