@@ -11,13 +11,14 @@ class Vector;
 
 class ALIGN(16) HomogeneousCoord {
 public:
+    float x, y, z, w;
     HomogeneousCoord() {}
     HomogeneousCoord(float x, float y, float z, float w);
     explicit HomogeneousCoord(const Point& p);
     explicit HomogeneousCoord(const Vector& v);
 
     static HomogeneousCoord rep(float v) {
-        /* TODO */ NOT_IMPLEMENTED;
+        return HomogeneousCoord(v,v,v,v);
     }
 
     float& operator [] (int idx);

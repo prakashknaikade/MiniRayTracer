@@ -16,7 +16,11 @@ Point::Point(float x, float y, float z)
 
 Point::Point(const HomogeneousCoord& coord)
 {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ 
+    rt_assert(fabs(coord.w) >= epsilon);
+    this->x = coord.x / coord.w;
+    this->y = coord.y / coord.w;
+    this->z = coord.z / coord.w;
 }
 
 Vector Point::operator - (const Point& b) const {

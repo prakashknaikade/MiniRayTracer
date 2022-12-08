@@ -18,10 +18,11 @@ Vector::Vector(float x, float y, float z)
 
 Vector::Vector(const HomogeneousCoord& coord)
 {
-    /* TODO */ NOT_IMPLEMENTED;
-    // Vector::x = coord.x / coord.w;
-    // Vector::y = coord.y / coord.w;
-    // Vector::z = coord.z / coord.w;
+    /* TODO */ 
+    rt_assert(fabs(coord.w) <= epsilon);
+    this->x = coord.x;
+    this->y = coord.y;
+    this->z = coord.z;
 }
 
 Vector Vector::operator + (const Vector& b) const {
@@ -169,7 +170,8 @@ Point operator - (const Point& a, const Vector& b) {
 }
 
 Point operator * (const HomogeneousCoord& scale, const Point& p) {
-    /* TODO */ NOT_IMPLEMENTED;
+    /* TODO */ 
+    return(Point(p.x * scale.x / scale.w, p.y * scale.y / scale.w, p.z * scale.z / scale.w));
 }
 
 }

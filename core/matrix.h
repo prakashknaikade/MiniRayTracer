@@ -33,6 +33,7 @@ public:
     static Matrix identity();
 
     static Matrix system(const Vector& e1, const Vector& e2, const Vector& e3);
+    HomogeneousCoord matRow[4]; 
 };
 
 Matrix product(const Matrix& a, const Matrix& b);
