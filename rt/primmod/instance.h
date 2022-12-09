@@ -3,6 +3,7 @@
 
 #include <core/vector.h>
 #include <rt/primitive.h>
+#include <core/matrix.h>
 
 namespace rt {
 
@@ -21,6 +22,11 @@ public:
     virtual Intersection intersect(const Ray& ray, float tmin = 0, float tmax = FLT_MAX) const;
     virtual void setMaterial(Material* m);
     virtual void setCoordMapper(CoordMapper* cm);
+
+private:
+    Primitive* archetype;
+    Matrix transform;
+    Matrix inverse;
 };
 
 }
