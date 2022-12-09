@@ -3,6 +3,7 @@
 
 #include <core/vector.h>
 #include <core/point.h>
+#include <core/homogeneouscoord.h>
 
 namespace rt {
 

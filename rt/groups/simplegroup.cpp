@@ -13,7 +13,7 @@ Intersection SimpleGroup::intersect(const Ray& ray, float tmin, float tmax) cons
     bool status_found = false;
 
     for(std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
-      Intersection intersection = primitives[i]->intersect(ray, tmax); //intersect(ray, tmin, bestDistance)
+      Intersection intersection = primitives[i]->intersect(ray, tmin, tmax); //intersect(ray, tmin, bestDistance)
       float distance = intersection.distance;
 
       if (intersection && (distance < tmax)&& (distance > tmin)){
