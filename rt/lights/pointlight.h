@@ -9,6 +9,8 @@ namespace rt {
 
 class PointLight : public Light {
 public:
+	Point lightPosition;
+	RGBColor lightIntensity;
 	PointLight() {}
 	PointLight(const Point& position, const RGBColor& intensity);
 	virtual LightHit getLightHit(const Point& p) const;

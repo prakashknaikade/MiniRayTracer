@@ -41,16 +41,16 @@ void SimpleGroup::add(Primitive* p) {
 
 void SimpleGroup::setMaterial(Material* m) {
     // /* TODO */ NOT_IMPLEMENTED;
-    for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
+    //for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) 
+    for (int i = 0; i < this->primitives.size(); i++) {
         this->primitives[i]->setMaterial(m);
     }
 }
 
 void SimpleGroup::setCoordMapper(CoordMapper* cm) {
     //  /* TODO */ NOT_IMPLEMENTED;
-    for (std::vector<Primitive *>::size_type i = 0; i != this->primitives.size(); i++) {
-        this->primitives[i]->setCoordMapper(cm);
+    
     }
-}
+
 
 }

@@ -7,6 +7,7 @@ namespace rt {
 
 class DummyMaterial : public Material {
 public:
+    float fr = 1.0f;
     DummyMaterial();
     virtual RGBColor getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const;
     virtual RGBColor getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const;
