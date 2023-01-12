@@ -11,7 +11,7 @@ RGBColor RayTracingIntegrator::getRadiance(const Ray& ray) const {
     Intersection hitPoint = this->world->scene->intersect(ray);
     if (hitPoint) {
         RGBColor color = hitPoint.solid->material->getEmission(hitPoint.local(), hitPoint.normal(), -ray.d);
-        for (int i = 0; i < world->light.size(); i++) {
+        for (std::vector<rt::Light*>::size_type i = 0; i < world->light.size(); i++) {
             LightHit hitLight = world->light[i]->getLightHit(hitPoint.hitPoint());
             if (dot(hitLight.direction, hitPoint.normal()) < epsilon) {
                 continue;
