@@ -1,74 +1,59 @@
 #include <rt/solids/quad.h>
+#include <core/random.h>
+#include <core/homogeneouscoord.h>
 
 namespace rt {
 
 Quad::Quad(const Point& origin, const Vector& span1, const Vector& span2, CoordMapper* texMapper, Material* material)
 {
-    /* TODO */
-    setMaterial(material);
-    setCoordMapper(texMapper);
-    Quad::p1 = origin;
-    Quad::span1 = span1;
-    Quad::span2 = span2;
-    Quad::normal = cross(span1, span2).normalize();
+    this->v1 = origin;
+    this->span1 = span1;
+    this->span2 = span2;
+    this->normal = cross(span1, span2).normalize();
 
-    p2 = p1 + Quad::span1;
-    p3 = p1 + Quad::span1 + Quad::span2;
-    p4 = p1 + Quad::span2;
+    v2 = v1 + this->span1;
+    v3 = v1 + this->span1 + this->span2;
+    v4 = v1 + this->span2;
 
-    Quad::center = (0.5*Quad::span1) + (0.5*Quad::span2) + p1;
-
-    float minx = min(p1.x, p2.x, min(p3.x, p4.x));
-    float miny = min(p1.y, p2.y, min(p3.y, p4.y));
-    float minz = min(p1.z, p2.z, min(p3.z, p4.z));
-
-    float maxx = max(p1.x, p2.x, max(p3.x, p4.x));
-    float maxy = max(p1.y, p2.y, max(p3.y, p4.y));
-    float maxz = max(p1.z, p2.z, max(p3.z, p4.z));
-
-    Point bmin = Point(minx, miny, minz);
-    Point bmax = Point(maxx, maxy, maxz);
-
-    mBBox = BBox(bmin, bmax);
+    this->center = v1 + (0.5*this->span1) + (0.5*this->span2);
+    this->setCoordMapper(texMapper);
+	this->setMaterial(material);
 }
 
 BBox Quad::getBounds() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    return mBBox;
+    Point min = rt::min(rt::min(v1, v2), rt::min(v3, v4));
+    Point max = rt::max(rt::max(v1, v2), rt::max(v3, v4));
+	return BBox(min, max);
 }
 
 Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
     // /* TODO */ NOT_IMPLEMENTED;
-    if (dot(ray.d, Quad::normal) == 0.0) 
-        return Intersection::failure();
-    
-    float t = dot(center - ray.o, Quad::normal) / dot(ray.d, Quad::normal);
-    // std::cout << "t " << t << " tmin " << tmin << " tmax " << tmax << '\n';
-    if (t > tmax) //|| t < tmin) 
-        return Intersection::failure();
-    
-    Point strike__point = ray.getPoint(t);
+    if (dot(ray.d, this->normal) == 0.0) return Intersection::failure();
+    float t = dot(center - ray.o, normal) / dot(ray.d, this->normal);
+    if (t > tmax || t < epsilon) return Intersection::failure();
+    Point hit_point = ray.getPoint(t);
 
-    bool find1 = dot(cross(p2-p1, strike__point - p1), normal) >= 0;
-    bool find2 = dot(cross(p3-p2, strike__point - p2), normal) >= 0;
-    bool find3 = dot(cross(p4-p3, strike__point - p3), normal) >= 0;
-    bool find4 = dot(cross(p1-p4, strike__point - p4), normal) >= 0;
+    bool check1 = dot(cross(v2-v1, hit_point - v1), normal) >= 0;
+    bool check2 = dot(cross(v3-v2, hit_point - v2), normal) >= 0;
+    bool check3 = dot(cross(v4-v3, hit_point - v3), normal) >= 0;
+    bool check4 = dot(cross(v1-v4, hit_point - v4), normal) >= 0;
 
-    if (find1 && find2 && find3 && find4) {
+    if (check1 && check2 && check3 && check4) {
         float u, v;
-        Vector strike_v1 = strike__point - p1;
-
+        Vector hit_v1 = hit_point - v1;
+        //Cramers rule for x and y coords of u*span1 + v*span2 = hit_point - v1
         if (fabs(span1.x * span2.y - span2.x * span1.y) >= epsilon) {
-            u = (strike_v1.x * span2.y - span2.x * strike_v1.y) / (span1.x * span2.y - span2.x * span1.y);
-            v = (span1.x * strike_v1.y - strike_v1.x * span1.y) / (span1.x * span2.y - span2.x * span1.y);
+            u = (hit_v1.x * span2.y - span2.x * hit_v1.y) / (span1.x * span2.y - span2.x * span1.y);
+            v = (span1.x * hit_v1.y - hit_v1.x * span1.y) / (span1.x * span2.y - span2.x * span1.y);
         }
         else if (fabs(span1.y * span2.z - span2.y * span1.z) >= epsilon) {
-            u = (strike_v1.y * span2.z - span2.y * strike_v1.z) / (span1.y * span2.z - span2.y * span1.z);
-            v = (span1.y * strike_v1.z - strike_v1.y * span1.z) / (span1.y * span2.z - span2.y * span1.z);
+            u = (hit_v1.y * span2.z - span2.y * hit_v1.z) / (span1.y * span2.z - span2.y * span1.z);
+            v = (span1.y * hit_v1.z - hit_v1.y * span1.z) / (span1.y * span2.z - span2.y * span1.z);
         }
         else {
-            u = (strike_v1.z * span2.x - span2.z * strike_v1.x) / (span1.z * span2.x - span2.z * span1.x);
-            v = (span1.z * strike_v1.x - strike_v1.z * span1.x) / (span1.z * span2.x - span2.z * span1.x);
+            u = (hit_v1.z * span2.x - span2.z * hit_v1.x) / (span1.z * span2.x - span2.z * span1.x);
+            v = (span1.z * hit_v1.x - hit_v1.z * span1.x) / (span1.z * span2.x - span2.z * span1.x);
         }
         
         return Intersection(t, ray, this, normal, Point(u, v, 0.0f));
@@ -76,11 +61,15 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
     else {
         return Intersection::failure();
     }
-
 }
 
 Solid::Sample Quad::sample() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    float u = random(), v = random();
+    Solid::Sample s;
+    s.point = v1 + u * span1 + v * span2;
+    s.normal = normal;
+    return s;
 }
 
 float Quad::getArea() const {

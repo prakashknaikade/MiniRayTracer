@@ -7,8 +7,8 @@ InfinitePlane::InfinitePlane(const Point& origin, const Vector& normal, CoordMap
     /* TODO */
     this->mOrigin = origin;
     this->mNormal = normal.normalize();
-    setMaterial(material);
-    setCoordMapper(texMapper);
+    this->setCoordMapper(texMapper);
+	this->setMaterial(material);
 
     mBBox = BBox::full();
 }

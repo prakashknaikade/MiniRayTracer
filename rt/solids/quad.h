@@ -16,17 +16,15 @@ public:
     virtual float getArea() const;
 
 private:
-  	Point p1;
-  	Point p2;
-  	Point p3;
-  	Point p4;
+	Point v1;
+  	Point v2;
+  	Point v3;
+  	Point v4;
 
   	Vector span1;
   	Vector span2;
   	Vector normal;
   	Point center;
-
-	BBox mBBox;
 };
 
 }

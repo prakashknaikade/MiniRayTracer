@@ -5,8 +5,8 @@ namespace rt {
 Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material)
 {
     /* TODO */
-    setCoordMapper(texMapper);
-    setMaterial(material);
+    this->setCoordMapper(texMapper);
+	this->setMaterial(material);
     v1 = vertices[0];
     v2 = vertices[1];
     v3 = vertices[2];

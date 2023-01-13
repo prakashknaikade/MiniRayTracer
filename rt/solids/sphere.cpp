@@ -5,8 +5,8 @@ namespace rt {
 Sphere::Sphere(const Point& center, float radius, CoordMapper* texMapper, Material* material)
 {
     /* TODO */
-    this->material = material;
-	this->texMapper = texMapper;
+	this->setCoordMapper(texMapper);
+	this->setMaterial(material);
 	this->mCenter = center;
 	this->mR = radius;
 

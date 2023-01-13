@@ -7,8 +7,8 @@ Disc::Disc(const Point& center, const Vector& normal, float radius, CoordMapper*
     /* TODO */
     this->mOrigin = center;
 	this->mNormal = normal.normalize();
-	setMaterial(material);
-	setCoordMapper(texMapper);
+	this->setCoordMapper(texMapper);
+	this->setMaterial(material);
 	this->mRadius = radius;
 	
 	float x = sqrt(mNormal.y * mNormal.y + mNormal.z * mNormal.z);
