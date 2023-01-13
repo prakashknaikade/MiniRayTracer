@@ -9,6 +9,8 @@ class Texture;
 
 class LambertianMaterial : public Material {
 public:
+    Texture* emission;
+    Texture* diffuse;
     LambertianMaterial(Texture* emission, Texture* diffuse);
     virtual RGBColor getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const;
     virtual RGBColor getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const;
