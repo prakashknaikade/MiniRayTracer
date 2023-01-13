@@ -1,4 +1,6 @@
 #include <rt/materials/phong.h>
+#include <rt/textures/texture.h>
+#include <core/scalar.h>
 
 namespace rt {
 
@@ -20,9 +22,9 @@ RGBColor PhongMaterial::getReflectance(const Point& texPoint, const Vector& norm
 }
 
 RGBColor PhongMaterial::getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const {
-    CG_UNUSED(texPoint);
-    CG_UNUSED(normal);
-    CG_UNUSED(outDir);
+    // CG_UNUSED(texPoint);
+    // CG_UNUSED(normal);
+    // CG_UNUSED(outDir);
 
     // /* TODO */ NOT_IMPLEMENTED;
     return(RGBColor::rep(0));

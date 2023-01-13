@@ -8,9 +8,9 @@ DummyMaterial::DummyMaterial() {
 }
 
 RGBColor DummyMaterial::getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const {
-    CG_UNUSED(texPoint);
+    // CG_UNUSED(texPoint);
     // CG_UNUSED(normal);
-    CG_UNUSED(outDir);
+    // CG_UNUSED(outDir);
     // CG_UNUSED(inDir);
     /* TODO */ 
     float cos_theta = dot(normal, inDir);
