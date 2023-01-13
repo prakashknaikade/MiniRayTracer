@@ -12,7 +12,7 @@ DirectionalLight::DirectionalLight(const Vector& direction, const RGBColor& colo
 }
 
 LightHit DirectionalLight::getLightHit(const Point& p) const {
-    CG_UNUSED(p);
+    // CG_UNUSED(p);
     // /* TODO */ NOT_IMPLEMENTED;
     LightHit hit;
     hit.direction = -light_dir;
@@ -23,7 +23,7 @@ LightHit DirectionalLight::getLightHit(const Point& p) const {
 }
 
 RGBColor DirectionalLight::getIntensity(const LightHit& irr) const {
-    CG_UNUSED(irr);
+    // CG_UNUSED(irr);
     // /* TODO */ NOT_IMPLEMENTED;
     return(light_color);
 

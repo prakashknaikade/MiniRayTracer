@@ -14,6 +14,8 @@ public:
     virtual RGBColor getIntensity(const LightHit& irr) const;
 	Vector conic_dir;
 	float conic_angle, cosine_exp;
+	RGBColor light_intensity;
+	Point light_position;
 };
 
 }

@@ -7,6 +7,8 @@ namespace rt {
 PointLight::PointLight(const Point& position, const RGBColor& intensity)
 {
     /* TODO */
+    this->lightPosition = position;
+    this->lightIntensity = intensity;
 }
 
 LightHit PointLight::getLightHit(const Point& p) const {

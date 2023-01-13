@@ -17,6 +17,7 @@ RGBColor SpotLight::getIntensity(const LightHit& irr) const {
     float cos_theta = dot(conic_dir, -irr.direction);
     if (cos_theta - cos(conic_angle) > 0) {
         return(light_intensity*pow(cos_theta,cosine_exp) / (irr.distance * irr.distance));
+        // return(light_intensity * cos_theta);
     }
     else {
         return(RGBColor::rep(0.0f));
