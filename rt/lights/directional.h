@@ -8,12 +8,12 @@ namespace rt {
 
 class DirectionalLight : public Light {
 public:
+	Vector light_dir;
+	RGBColor light_color;
 	DirectionalLight() {}
 	DirectionalLight(const Vector& direction, const RGBColor& color);
 	virtual LightHit getLightHit(const Point& p) const;
     virtual RGBColor getIntensity(const LightHit& irr) const;
-	Vector light_dir;
-	RGBColor light_color;
 };
 
 }

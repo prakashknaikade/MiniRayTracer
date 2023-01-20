@@ -14,14 +14,11 @@ SpotLight::SpotLight(const Point& position, const Vector& direction, float angle
 
 RGBColor SpotLight::getIntensity(const LightHit& irr) const {
     // /* TODO */ NOT_IMPLEMENTED;
-    float cos_theta = dot(conic_dir, -irr.direction);
-    if (cos_theta - cos(conic_angle) > 0) {
-        return(light_intensity*pow(cos_theta,cosine_exp) / (irr.distance * irr.distance));
-        // return(light_intensity * cos_theta);
-    }
-    else {
-        return(RGBColor::rep(0.0f));
-    }
+    float cos_theta = dot(irr.direction, -1 * conic_dir);
+    float cosCutOff = cos(conic_angle);
+    if (cos_theta - cosCutOff < epsilon) return RGBColor::rep(0.0f);
+
+	return light_intensity * pow(cos_theta, cosine_exp) / (irr.distance * irr.distance);
 }
 
 }

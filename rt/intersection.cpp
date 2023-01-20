@@ -15,15 +15,15 @@ Intersection::Intersection(float distance, const Ray& ray, const Solid* solid, c
 
 Intersection::operator bool() const {
     /* TODO */ //NOT_IMPLEMENTED;
+    // if (this->Intersection_Status == false) rt_assert(this->solid == nullptr);
     return(this->Intersection_Status);
-    // return distance != FLT_MAX
 }
 
 Intersection Intersection::failure() {
     /* TODO */ //NOT_IMPLEMENTED;
-    // failedIntersection = Intersection(FLT_MAX, Ray(), null_ptr (no solid))
     Intersection failedIntersection;
 	failedIntersection.Intersection_Status = false;
+    // failedIntersection.solid = nullptr;
 	return failedIntersection;
 }
 
