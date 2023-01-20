@@ -1,12 +1,12 @@
 #include <rt/solids/triangle.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
-Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material)
+Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
-    this->setCoordMapper(texMapper);
-	this->setMaterial(material);
+
     v1 = vertices[0];
     v2 = vertices[1];
     v3 = vertices[2];
@@ -15,26 +15,12 @@ Triangle::Triangle(Point vertices[3], CoordMapper* texMapper, Material* material
     mVect2 = (v3 - v1).normalize();
     mNormal = cross(mVect1, mVect2).normalize();
 
-    float minx = min(v1.x, v2.x, v3.x);
-    float miny = min(v1.y, v2.y, v3.y);
-    float minz = min(v1.z, v2.z, v3.z);
-
-    float maxx = max(v1.x, v2.x, v3.x);
-    float maxy = max(v1.y, v2.y, v3.y);
-    float maxz = max(v1.z, v2.z, v3.z);
-
-    this -> bmin = Point(minx, miny, minz);
-    this -> bmax = Point(maxx, maxy, maxz);
-
-    mBBox = BBox(bmin, bmax); 
-
 }
 
-Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMapper* texMapper, Material* material)
+Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
-    setCoordMapper(texMapper);
-    setMaterial(material);
+
     this->v1 = v1;
     this->v2 = v2;
     this->v3 = v3;
@@ -43,23 +29,10 @@ Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3, CoordMappe
     mVect2 = (v3 - v1).normalize();
     mNormal = cross(mVect1, mVect2).normalize();
 
-    float minx = min(v1.x, v2.x, v3.x);
-    float miny = min(v1.y, v2.y, v3.y);
-    float minz = min(v1.z, v2.z, v3.z);
-
-    float maxx = max(v1.x, v2.x, v3.x);
-    float maxy = max(v1.y, v2.y, v3.y);
-    float maxz = max(v1.z, v2.z, v3.z);
-
-    this -> bmin = Point(minx, miny, minz);
-    this -> bmax = Point(maxx, maxy, maxz);
-
-    mBBox = BBox(bmin, bmax); 
 }
 
 BBox Triangle::getBounds() const {
     // /* TODO */ NOT_IMPLEMENTED;
-    // return mBBox;
     Point min = rt::min(rt::min(v1, v2), v3);
     Point max = rt::max(rt::max(v1, v2), v3);
 	return BBox(min, max);

@@ -1,13 +1,13 @@
 #include <rt/solids/aabox.h>
 #include <core/point.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
-AABox::AABox(const Point& corner1, const Point& corner2, CoordMapper* texMapper, Material* material)
+AABox::AABox(const Point& corner1, const Point& corner2, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
-    this->setCoordMapper(texMapper);
-	this->setMaterial(material);
+    
 	this->mCorner1 = corner1;
 	this->mCorner2 = corner2;
 

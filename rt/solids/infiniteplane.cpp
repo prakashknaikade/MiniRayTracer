@@ -1,15 +1,13 @@
 #include <rt/solids/infiniteplane.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
-InfinitePlane::InfinitePlane(const Point& origin, const Vector& normal, CoordMapper* texMapper, Material* material)
+InfinitePlane::InfinitePlane(const Point& origin, const Vector& normal, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
     this->mOrigin = origin;
     this->mNormal = normal.normalize();
-    this->setCoordMapper(texMapper);
-	this->setMaterial(material);
-
     mBBox = BBox::full();
 }
 
@@ -27,7 +25,7 @@ Intersection InfinitePlane::intersect(const Ray& ray, float tmin, float tmax) co
     if (fabsf(denom) <= epsilon)
         return Intersection::failure(); 
 
-    float t = -dot(ray.o - mOrigin, mNormal) / denom;
+    float t = dot(mOrigin - ray.o, mNormal) / denom;
 
     if (t > tmax) return Intersection::failure();
 

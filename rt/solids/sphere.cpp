@@ -1,12 +1,11 @@
 #include <rt/solids/sphere.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
-Sphere::Sphere(const Point& center, float radius, CoordMapper* texMapper, Material* material)
+Sphere::Sphere(const Point& center, float radius, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
-	this->setCoordMapper(texMapper);
-	this->setMaterial(material);
 	this->mCenter = center;
 	this->mR = radius;
 

@@ -1,14 +1,13 @@
 #include <rt/solids/disc.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
-Disc::Disc(const Point& center, const Vector& normal, float radius, CoordMapper* texMapper, Material* material)
+Disc::Disc(const Point& center, const Vector& normal, float radius, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     /* TODO */
     this->mOrigin = center;
 	this->mNormal = normal.normalize();
-	this->setCoordMapper(texMapper);
-	this->setMaterial(material);
 	this->mRadius = radius;
 	
 	float x = sqrt(mNormal.y * mNormal.y + mNormal.z * mNormal.z);

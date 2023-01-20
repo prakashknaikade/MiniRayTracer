@@ -1,10 +1,11 @@
 #include <rt/solids/quad.h>
+#include <rt/coordmappers/world.h>
 #include <core/random.h>
 #include <core/homogeneouscoord.h>
 
 namespace rt {
 
-Quad::Quad(const Point& origin, const Vector& span1, const Vector& span2, CoordMapper* texMapper, Material* material)
+Quad::Quad(const Point& origin, const Vector& span1, const Vector& span2, CoordMapper* texMapper, Material* material) : Solid(texMapper, material)
 {
     this->v1 = origin;
     this->span1 = span1;
@@ -16,8 +17,7 @@ Quad::Quad(const Point& origin, const Vector& span1, const Vector& span2, CoordM
     v4 = v1 + this->span2;
 
     this->center = v1 + (0.5*this->span1) + (0.5*this->span2);
-    this->setCoordMapper(texMapper);
-	this->setMaterial(material);
+    
 }
 
 BBox Quad::getBounds() const {
@@ -64,12 +64,7 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
 }
 
 Solid::Sample Quad::sample() const {
-    // /* TODO */ NOT_IMPLEMENTED;
-    float u = random(), v = random();
-    Solid::Sample s;
-    s.point = v1 + u * span1 + v * span2;
-    s.normal = normal;
-    return s;
+    /* TODO */ NOT_IMPLEMENTED;
 }
 
 float Quad::getArea() const {

@@ -4,6 +4,7 @@
 #include <core/point.h>
 #include <core/vector.h>
 #include <rt/primitive.h>
+#include <rt/coordmappers/world.h>
 
 namespace rt {
 
