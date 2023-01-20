@@ -12,6 +12,7 @@ class RayTracingIntegrator : public Integrator {
 public:
     RayTracingIntegrator(World* world) : Integrator(world) {}
     virtual RGBColor getRadiance(const Ray& ray) const;
+    
 };
 
 }
