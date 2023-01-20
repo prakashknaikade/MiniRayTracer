@@ -3,11 +3,13 @@
 
 #include <core/image.h>
 #include <rt/textures/texture.h>
+#include <core/point.h>
 
 namespace rt {
 
 class ImageTexture : public Texture {
 public:
+    Image img_texture;
     enum BorderHandlingType {
         CLAMP,
         MIRROR,
@@ -25,6 +27,9 @@ public:
     virtual RGBColor getColor(const Point& coord);
     virtual RGBColor getColorDX(const Point& coord);
     virtual RGBColor getColorDY(const Point& coord);
+    BorderHandlingType bh;
+    InterpolationType i;
+    int img_width, img_height;
 };
 
 }
