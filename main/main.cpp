@@ -13,7 +13,10 @@ void a_smooth();
 void a_bumpmappers();
 
 int main(int /*argc*/, char** /*argv*/) {
-    a_materials();
-    a_lighting();
+    a_textures();
+    a_local();
+    a_mappers();
+    // a_materials();
+    // a_lighting();
     return 0;
 }

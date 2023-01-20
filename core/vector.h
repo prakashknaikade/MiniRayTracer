@@ -44,7 +44,7 @@ Vector max(const Vector& a, const Vector& b);
 Point operator + (const Point& a, const Vector& b);
 Point operator + (const Vector& a, const Point& b);
 Point operator - (const Point& a, const Vector& b);
-// Point operator * (const HomogeneousCoord& scale, const Point& p);
+Point operator * (const HomogeneousCoord& scale, const Point& p);
 
 }
 
