@@ -9,6 +9,8 @@ class Solid;
 
 class AreaLight : public Light {
 public:
+    Solid* source;
+    float area;
     AreaLight() {}
     AreaLight(Solid* source);
     virtual LightHit getLightHit(const Point& p) const;

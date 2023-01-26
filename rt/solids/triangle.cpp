@@ -1,5 +1,7 @@
 #include <rt/solids/triangle.h>
 #include <rt/coordmappers/world.h>
+#include <core/random.h>
+#include <core/homogeneouscoord.h>
 
 namespace rt {
 
@@ -72,7 +74,15 @@ Intersection Triangle::intersect(const Ray& ray, float tmin, float tmax) const {
 }
 
 Solid::Sample Triangle::sample() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    float u = random(), v = random(), w = random();
+    u = u / (u + v + w);
+    v = v / (u + v + w);
+    w = 1 - u - v;
+    Solid::Sample s{};
+    s.point = Point(u * HomogeneousCoord(v1) + v * HomogeneousCoord(v2) + w * HomogeneousCoord(v3));
+    s.normal = mNormal;
+    return(s);
 }
 
 float Triangle::getArea() const {

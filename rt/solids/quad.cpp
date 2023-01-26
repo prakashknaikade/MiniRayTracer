@@ -64,7 +64,12 @@ Intersection Quad::intersect(const Ray& ray, float tmin, float tmax) const {
 }
 
 Solid::Sample Quad::sample() const {
-    /* TODO */ NOT_IMPLEMENTED;
+    // /* TODO */ NOT_IMPLEMENTED;
+    float u = random(), v = random();
+    Solid::Sample s;
+    s.point = v1 + u * span1 + v * span2;
+    s.normal = normal;
+    return s;
 }
 
 float Quad::getArea() const {
