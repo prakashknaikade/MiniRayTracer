@@ -5,11 +5,11 @@ namespace rt {
 SpotLight::SpotLight(const Point& position, const Vector& direction, float angle, float power, const RGBColor& intensity)
 {
     /* TODO */
-    this->light_position = position;
+    this->lightPosition = position;
     this->conic_dir = direction.normalize();
     this->conic_angle = angle;
     this->cosine_exp = power;
-    this->light_intensity = intensity;
+    this->lightIntensity = intensity;
 }
 
 RGBColor SpotLight::getIntensity(const LightHit& irr) const {
@@ -18,7 +18,7 @@ RGBColor SpotLight::getIntensity(const LightHit& irr) const {
     float cosCutOff = cos(conic_angle);
     if (cos_theta - cosCutOff < epsilon) return RGBColor::rep(0.0f);
 
-	return light_intensity * pow(cos_theta, cosine_exp) / (irr.distance * irr.distance);
+	return lightIntensity * pow(cos_theta, cosine_exp) / (irr.distance * irr.distance);
 }
 
 }

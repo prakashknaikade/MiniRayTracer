@@ -18,7 +18,8 @@ RGBColor PhongMaterial::getReflectance(const Point& texPoint, const Vector& norm
     // CG_UNUSED(inDir);
 
     // /* TODO */ NOT_IMPLEMENTED;.
-    return(specular->getColor(texPoint) * pow(dot((-inDir + 2 * dot(inDir, normal) * normal).normalize(), outDir.normalize()), exponent)) * dot(inDir, normal) * (exponent + 2)/(2*pi);
+    float dot_indir_normal = max(dot(inDir, normal), 0.0f);
+    return(specular->getColor(texPoint) * pow(dot((-inDir + 2 * dot_indir_normal * normal).normalize(), outDir.normalize()), exponent)) * dot_indir_normal * (exponent + 2)/(2*pi);
 }
 
 RGBColor PhongMaterial::getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const {

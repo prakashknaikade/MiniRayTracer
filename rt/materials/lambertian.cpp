@@ -18,7 +18,8 @@ RGBColor LambertianMaterial::getReflectance(const Point& texPoint, const Vector&
     // CG_UNUSED(inDir);
 
     // /* TODO */ NOT_IMPLEMENTED;
-    return (diffuse->getColor(texPoint) * dot(normal, inDir) / pi);
+    
+    return (diffuse->getColor(texPoint) * max(dot(normal, inDir), 0.0f) / pi);
 }
 
 RGBColor LambertianMaterial::getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const {
