@@ -32,10 +32,10 @@ RGBColor LambertianMaterial::getEmission(const Point& texPoint, const Vector& no
 }
 
 Material::SampleReflectance LambertianMaterial::getSampleReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir) const {
-    CG_UNUSED(texPoint);
-    CG_UNUSED(normal);
-    CG_UNUSED(outDir);
-	UNREACHABLE;
+    // CG_UNUSED(texPoint);
+    // CG_UNUSED(normal);
+    // CG_UNUSED(outDir);
+	return(SampleReflectance());
 }
 
 Material::Sampling LambertianMaterial::useSampling() const {

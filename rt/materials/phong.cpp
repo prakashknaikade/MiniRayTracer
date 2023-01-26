@@ -32,15 +32,15 @@ RGBColor PhongMaterial::getEmission(const Point& texPoint, const Vector& normal,
 }
 
 Material::SampleReflectance PhongMaterial::getSampleReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir) const {
-    CG_UNUSED(texPoint);
-    CG_UNUSED(normal);
-    CG_UNUSED(outDir);
+    // CG_UNUSED(texPoint);
+    // CG_UNUSED(normal);
+    // CG_UNUSED(outDir);
 
-	UNREACHABLE;
+	return(SampleReflectance());
 }
 
 Material::Sampling PhongMaterial::useSampling() const {
-	/* TODO */ NOT_IMPLEMENTED;
+	return SAMPLING_NOT_NEEDED;
 }
 
 }
