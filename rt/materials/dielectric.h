@@ -8,6 +8,7 @@ namespace rt {
 /// A fancy perfect glass (eta = ~1.55) or dielectric in general
 class DielectricMaterial : public Material {
 public:
+    float eta;
     DielectricMaterial(float eta);
     virtual RGBColor getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const;
     virtual RGBColor getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const;

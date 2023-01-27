@@ -13,7 +13,6 @@ FuzzyConductorMaterial::FuzzyConductorMaterial(float eta, float kappa, float fuz
 }
 
 RGBColor FuzzyConductorMaterial::getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const {
-
     /* TODO */ 
     return(RGBColor::rep(0.0f));
 
