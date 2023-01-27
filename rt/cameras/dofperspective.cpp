@@ -39,3 +39,4 @@ Ray DOFPerspectiveCamera::getPrimaryRay(float x, float y) const {
 
     return Ray(o, d);
 }
+}

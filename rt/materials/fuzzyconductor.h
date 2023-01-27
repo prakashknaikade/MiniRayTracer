@@ -8,6 +8,8 @@ namespace rt {
 /// A "rough" mirror or metal in general
 class FuzzyConductorMaterial : public Material {
 public:
+    float eta, kappa, fuzzyangle;
+    float eta2_plus_kappa2;
     FuzzyConductorMaterial(float eta, float kappa, float fuzzyangle);
     virtual RGBColor getReflectance(const Point& texPoint, const Vector& normal, const Vector& outDir, const Vector& inDir) const;
     virtual RGBColor getEmission(const Point& texPoint, const Vector& normal, const Vector& outDir) const;
