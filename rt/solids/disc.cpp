@@ -1,5 +1,6 @@
 #include <rt/solids/disc.h>
 #include <rt/coordmappers/world.h>
+#include <core/random.h>
 
 namespace rt {
 
@@ -19,6 +20,19 @@ Disc::Disc(const Point& center, const Vector& normal, float radius, CoordMapper*
 	Point max = mOrigin + mRadius * e;
 
 	mBBox = BBox(min, max);
+
+	Vector s;
+	if (mNormal.x < mNormal.y && mNormal.x < mNormal.z) {
+		s = Vector(0, -mNormal.z, mNormal.y).normalize();
+	}
+	else if (mNormal.y < mNormal.x && mNormal.y < mNormal.z) {
+		s = Vector(-mNormal.z, 0, mNormal.x).normalize();
+	}
+	else {
+		s = Vector(-mNormal.y, mNormal.x, 0).normalize();
+	}
+	Vector t = cross(mNormal, s).normalize();
+	m = Matrix::system(s, t, mNormal.normalize());
 }
 
 BBox Disc::getBounds() const {
@@ -44,7 +58,13 @@ Intersection Disc::intersect(const Ray& ray, float tmin, float tmax) const {
 }
 
 Solid::Sample Disc::sample() const {
-    NOT_IMPLEMENTED;
+    // NOT_IMPLEMENTED;
+	float u = random(), v = random();
+	Point p = m * Point(u * mRadius * cos(2 * pi * v), u * mRadius * sin(2 * pi * v), 0.0f);
+	Solid::Sample s;
+	s.point = Point(mOrigin.x + p.x, mOrigin.y + p.y, mOrigin.z + p.z);
+	s.normal = mNormal;
+	return s;
 }
 
 float Disc::getArea() const {

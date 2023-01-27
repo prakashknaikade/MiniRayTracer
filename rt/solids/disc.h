@@ -2,6 +2,7 @@
 #define CG1RAYTRACER_SOLIDS_DISC_HEADER
 
 #include <rt/solids/solid.h>
+#include <core/matrix.h>
 
 namespace rt {
 
@@ -20,6 +21,7 @@ private:
     Vector mNormal;
     float mRadius;
     BBox mBBox;
+    Matrix m;
     
 };
 

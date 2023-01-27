@@ -1,10 +1,13 @@
 #include <core/scalar.h>
 #include <core/image.h>
+#include <core/random.h>
 #include <rt/renderer.h>
 #include <rt/ray.h>
 #include <iostream>
 #include <rt/cameras/camera.h>
-#include "integrators/integrator.h"
+#include <rt/cameras/orthographic.h>
+#include <rt/cameras/perspective.h>
+#include <rt/integrators/integrator.h>
 
 namespace rt {
 
