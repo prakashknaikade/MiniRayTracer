@@ -14,6 +14,6 @@ void a_bumpmappers();
 
 int main(int /*argc*/, char** /*argv*/) {
     a_distributed();
-    a_smooth();
+    //a_smooth();
     return 0;
 }
