@@ -1,1 +1,1 @@
-This simple implitation of mini raytracing engine called MiniRayTracer,
+This is a simple implementation of a mini ray tracing engine called MiniRayTracer.
